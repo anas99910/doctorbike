@@ -283,13 +283,24 @@ img {
 /* Hero Section */
 .hero {
     height: 100vh;
-    background: url('../assets/hero-bg.png') center/cover no-repeat;
+    background-color: var(--bg-black);
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     margin-top: 0;
+    overflow: hidden;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
 }
 
 .hero-overlay {
@@ -324,6 +335,97 @@ img {
     display: flex;
     gap: 20px;
     justify-content: center;
+    margin-top: 30px;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    color: var(--text-gray);
+    max-width: 600px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+}
+
+.hero-features {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.feature-item i {
+    color: var(--primary-red);
+    font-size: 1.1rem;
+}
+
+.feature-item span {
+    color: var(--text-white);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-family: var(--font-heading);
+    letter-spacing: 0.5px;
+}
+
+/* Scroll Down Animation */
+.scroll-down {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0.7;
+}
+
+.mouse {
+    width: 26px;
+    height: 42px;
+    border: 2px solid var(--text-white);
+    border-radius: 20px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.wheel {
+    width: 4px;
+    height: 8px;
+    background: var(--primary-red);
+    border-radius: 2px;
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: mouse-wheel 1.5s infinite;
+}
+
+@keyframes mouse-wheel {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(15px);
+    }
+}
+
+.delay-3 {
+    animation-delay: 0.6s;
 }
 
 /* About Section */
