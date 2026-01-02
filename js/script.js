@@ -16,6 +16,32 @@ document.addEventListener('DOMContentLoaded', () => {
         navMenu.classList.remove('active');
     }));
 
+    // Smart WhatsApp Booking
+    window.bookService = function (serviceType) {
+        const phoneNumber = "212696344361";
+        let message = "";
+
+        switch (serviceType) {
+            case 'maintenance':
+                message = "Bonjour Doctor Biker, je voudrais prendre rendez-vous pour l'entretien de ma moto.";
+                break;
+            case 'diagnostic':
+                message = "Bonjour, j'ai besoin d'un diagnostic pour ma moto (problème mécanique/électronique).";
+                break;
+            case 'custom':
+                message = "Bonjour, je suis intéressé par un projet de personnalisation pour ma moto.";
+                break;
+            case 'performance':
+                message = "Bonjour, je voudrais améliorer les suspensions/freins de ma moto.";
+                break;
+            default:
+                message = "Bonjour Doctor Biker, je voudrais plus d'informations sur vos services.";
+        }
+
+        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+    }
+
     // Scroll Animations using Intersection Observer
     const observerOptions = {
         root: null,

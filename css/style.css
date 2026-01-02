@@ -19,6 +19,10 @@
     --transition: all 0.3s ease;
 }
 
+.mt-3 {
+    margin-top: 1rem !important;
+}
+
 /* Reset & Base */
 * {
     margin: 0;
@@ -124,14 +128,66 @@ img {
 }
 
 .btn-outline {
-    border: 2px solid var(--text-white);
-    color: var(--text-white);
+    background: transparent;
+    color: var(--text-light);
+    border: 1px solid var(--text-light);
 }
 
-.btn-outline:hover {
-    background-color: var(--text-white);
+.btn-outline-white:hover {
+    background: var(--text-light);
     color: var(--bg-black);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Apple/Sleek Modern Glow Button */
+.btn-glow {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-light);
+    border: none;
+    border-radius: 50px;
+    /* Highly rounded for Apple feel */
+    background-clip: padding-box;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.btn-glow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    margin: -2px;
+    border-radius: inherit;
+    background: linear-gradient(45deg, #ff3b30, #ff9500, #ffcc00, #007aff, #5856d6, #ff2d55);
+    background-size: 300% 300%;
+    animation: gradientborder 4s ease infinite;
+}
+
+.btn-glow:hover {
     transform: translateY(-2px);
+    box-shadow: 0 10px 20px -10px rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+@keyframes gradientborder {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 /* Navbar */
@@ -403,6 +459,47 @@ img {
 
 .gallery-item:hover img {
     transform: scale(1.1);
+}
+
+/* Brands Section */
+.brands-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    background-color: #000;
+
+    /* Enable scrolling on mobile */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+
+    /* Hide scrollbar for cleaner look (optional) */
+    scrollbar-width: none;
+}
+
+.brands-container::-webkit-scrollbar {
+    display: none;
+}
+
+.brands-img {
+    height: 80px;
+    /* Fixed height ensures logos are legible */
+    width: auto;
+    /* Allow natural width */
+    max-width: none;
+    /* Override max-width so it can scroll */
+
+    filter: grayscale(100%) brightness(200%);
+    /* Make white */
+    opacity: 0.8;
+    transition: var(--transition);
+}
+
+.brands-img:hover {
+    opacity: 1;
+    filter: grayscale(0%) brightness(100%);
+    /* Full color on hover */
 }
 
 /* Reviews */
