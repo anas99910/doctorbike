@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor Biker Garage | Motorcycle Repair & Customization Casablanca</title>
+    <title>Doctor Biker Garage | Réparation & Personnalisation Moto Casablanca</title>
     <meta name="description"
-        content="Doctor Biker Garage in Casablanca. Professional motorcycle repair, diagnostics, customization, and accessories for all brands. Honda, Yamaha, BMW, Ducati, and more.">
+        content="Doctor Biker Garage à Casablanca. Réparation, diagnostic, personnalisation et accessoires de moto professionnels. Honda, Yamaha, BMW, Ducati et plus.">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,12 +40,16 @@
                 <span class="bar"></span>
             </div>
             <ul class="nav-menu">
-                <li><a href="#hero" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#services" class="nav-link">Services</a></li>
-                <li><a href="#gallery" class="nav-link">Gallery</a></li>
-                <li><a href="#reviews" class="nav-link">Reviews</a></li>
-                <li><a href="#contact" class="nav-link btn-primary">Contact Us</a></li>
+                <li><a href="#hero" class="nav-link active" data-i18n="nav_home">Accueil</a></li>
+                <li><a href="#about" class="nav-link" data-i18n="nav_about">À Propos</a></li>
+                <li><a href="#services" class="nav-link" data-i18n="nav_services">Services</a></li>
+                <li><a href="#gallery" class="nav-link" data-i18n="nav_gallery">Galerie</a></li>
+                <li><a href="#reviews" class="nav-link" data-i18n="nav_reviews">Avis</a></li>
+                <li><a href="#contact" class="nav-link btn-primary" data-i18n="hero_contact">Contactez-nous</a></li>
+                <li class="lang-switcher">
+                    <span class="lang-btn active" onclick="changeLanguage('fr')">FR</span> |
+                    <span class="lang-btn" onclick="changeLanguage('en')">EN</span>
+                </li>
             </ul>
         </div>
     </nav>
@@ -55,11 +59,12 @@
         <div class="hero-overlay"></div>
         <div class="container hero-content">
             <h1 class="animate-up">Doctor Biker Garage</h1>
-            <p class="subtitle animate-up delay-1">Motorcycle Accessories & Preparation Workshop</p>
+            <p class="subtitle animate-up delay-1" data-i18n="hero_subtitle">Atelier d'Accessoires & Préparation Moto
+            </p>
             <div class="hero-buttons animate-up delay-2">
-                <a href="#contact" class="btn btn-primary">Contact Us</a>
-                <a href="https://maps.app.goo.gl/h9rf7rjWAWET5vLm9" target="_blank" class="btn btn-outline">Get
-                    Directions</a>
+                <a href="#contact" class="btn btn-primary" data-i18n="hero_contact">Contactez-nous</a>
+                <a href="https://maps.app.goo.gl/h9rf7rjWAWET5vLm9" target="_blank" class="btn btn-outline"
+                    data-i18n="hero_directions">Itinéraire</a>
             </div>
         </div>
     </section>
@@ -68,29 +73,30 @@
     <section id="about" class="section bg-dark">
         <div class="container">
             <div class="section-header text-center">
-                <h2>Who We Are</h2>
+                <h2 data-i18n="about_title">Qui Sommes-Nous</h2>
                 <div class="divider"></div>
             </div>
             <div class="about-content">
                 <div class="about-text">
-                    <p>Doctor Biker Garage is a premier <strong>Motorcycle Accessories & Preparation Workshop</strong>
-                        in Casablanca. We specialize in customizing and preparing bikes for peak performance and style.
+                    <p data-i18n="about_text_1">Doctor Biker Garage est un <strong>Atelier d'Accessoires & Préparation
+                            Moto</strong> de premier plan à Casablanca. Nous sommes spécialisés dans la personnalisation
+                        et la préparation de motos pour la performance et le style.</p>
+                    <p data-i18n="about_text_2">Nous servons toutes les grandes marques, y compris <strong>Honda,
+                            Yamaha, Kawasaki, BMW, KTM, Ducati, Suzuki, CFMOTO et SYM</strong>. Que ce soit pour un
+                        diagnostic, une réparation ou une construction complète, notre passion motive chaque service.
                     </p>
-                    <p>We service all major brands including <strong>Honda, Yamaha, Kawasaki, BMW, KTM, Ducati, Suzuki,
-                            CFMOTO, and SYM</strong>. Whether it's diagnostics, repair, or a complete build, our passion
-                        drives every service.</p>
                     <div class="stats-grid">
                         <div class="stat-item">
                             <span class="stat-number">11K+</span>
-                            <span class="stat-label">Followers</span>
+                            <span class="stat-label" data-i18n="stat_followers">Abonnés</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-number">4.8</span>
-                            <span class="stat-label">Rating</span>
+                            <span class="stat-label" data-i18n="stat_rating">Note</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-number">100%</span>
-                            <span class="stat-label">Passion</span>
+                            <span class="stat-label" data-i18n="stat_passion">Passion</span>
                         </div>
                     </div>
                 </div>
@@ -105,41 +111,31 @@
     <section id="services" class="section bg-black">
         <div class="container">
             <div class="section-header text-center">
-                <h2>Our Services</h2>
+                <h2 data-i18n="services_title">Nos Services</h2>
                 <div class="divider"></div>
-                <p>Comprehensive care for your machine</p>
             </div>
             <div class="services-grid">
                 <div class="service-card">
-                    <i class="fas fa-wrench"></i>
-                    <h3>Maintenance & Service</h3>
-                    <p>Regular check-ups, oil changes, and factory scheduled maintenance to keep your bike running
-                        smoothly.</p>
+                    <i class="fas fa-tools"></i>
+                    <h3 data-i18n="service_maint_title">Entretien</h3>
+                    <p data-i18n="service_maint_desc">Changements d'huile, filtres, freins et mises au point générales.
+                    </p>
                 </div>
                 <div class="service-card">
-                    <i class="fas fa-stethoscope"></i>
-                    <h3>Engine Repair & Diagnostics</h3>
-                    <p>Advanced diagnostic tools and expert mechanics to solve complex engine issues.</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-bolt"></i>
-                    <h3>Electrical & Wiring</h3>
-                    <p>Complete electrical system troubleshooting, wiring repairs, and accessory integration.</p>
+                    <i class="fas fa-laptop-medical"></i>
+                    <h3 data-i18n="service_diag_title">Diagnostic</h3>
+                    <p data-i18n="service_diag_desc">Dépannage avancé des systèmes électroniques et mécaniques.</p>
                 </div>
                 <div class="service-card">
                     <i class="fas fa-motorcycle"></i>
-                    <h3>Custom Builds</h3>
-                    <p>Performance upgrades and aesthetic modifications to make your bike truly unique.</p>
+                    <h3 data-i18n="service_custom_title">Construction Personnalisée</h3>
+                    <p data-i18n="service_custom_desc">Modifications sur mesure pour transformer votre moto en une
+                        machine unique.</p>
                 </div>
                 <div class="service-card">
-                    <i class="fas fa-cogs"></i>
-                    <h3>Brake & Suspension</h3>
-                    <p>Expert tuning and repair for your safety and handling performance.</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-puzzle-piece"></i>
-                    <h3>Accessories Installation</h3>
-                    <p>Professional installation of exhausts, lights, sliders, and other aftermarket parts.</p>
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h3 data-i18n="service_brakes_title">Suspension & Freins</h3>
+                    <p data-i18n="service_brakes_desc">Améliorations de performance pour la piste et la rue.</p>
                 </div>
             </div>
         </div>
@@ -149,7 +145,7 @@
     <section id="gallery" class="section bg-dark">
         <div class="container">
             <div class="section-header text-center">
-                <h2>Gallery</h2>
+                <h2 data-i18n="gallery_title">Galerie</h2>
                 <div class="divider"></div>
             </div>
             <div class="gallery-grid">
@@ -189,7 +185,7 @@
     <section id="reviews" class="section bg-black">
         <div class="container">
             <div class="section-header text-center">
-                <h2>What Riders Say</h2>
+                <h2 data-i18n="reviews_title">Ce Que Disent les Motards</h2>
                 <div class="divider"></div>
                 <div class="rating-badge">
                     <span class="score">4.8</span>
@@ -200,7 +196,7 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star-half-alt"></i>
                     </div>
-                    <span class="source">on Google</span>
+                    <span class="source">sur Google</span>
                 </div>
             </div>
             <div class="reviews-slider">
@@ -235,24 +231,24 @@
         <div class="container">
             <div class="contact-wrapper">
                 <div class="contact-info">
-                    <h2>Get In Touch</h2>
+                    <h2 data-i18n="contact_title">Contactez-nous</h2>
                     <div class="divider"></div>
-                    <p>Visit our workshop or contact us for an appointment.</p>
+                    <p data-i18n="contact_subtitle">Nous serions ravis de vous entendre</p>
 
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
-                            <h4>Location</h4>
+                            <h4 data-i18n="contact_address">Adresse</h4>
                             <p>Casablanca, Morocco</p>
-                            <a href="https://maps.app.goo.gl/h9rf7rjWAWET5vLm9" target="_blank" class="link-red">Open in
-                                Google Maps</a>
+                            <a href="https://maps.app.goo.gl/h9rf7rjWAWET5vLm9" target="_blank" class="link-red">Ouvrir
+                                dans Google Maps</a>
                         </div>
                     </div>
 
                     <div class="contact-item">
                         <i class="fas fa-phone-alt"></i>
                         <div>
-                            <h4>Phone</h4>
+                            <h4 data-i18n="contact_phone">Téléphone</h4>
                             <p><a href="tel:+212696344361">0696 34 43 61</a></p>
                         </div>
                     </div>
@@ -260,9 +256,9 @@
                     <div class="contact-item">
                         <i class="fas fa-clock"></i>
                         <div>
-                            <h4>Working Hours</h4>
-                            <p>Mon - Sat: 09:00 - 19:00</p>
-                            <p>Sun: Closed</p>
+                            <h4 data-i18n="contact_hours">Heures d'ouverture</h4>
+                            <p data-i18n="contact_mon_sat">Lun - Sam: 9h00 - 20h00</p>
+                            <p data-i18n="contact_sun">Dimanche: Fermé</p>
                         </div>
                     </div>
 
@@ -294,10 +290,11 @@
                 <a href="https://www.tiktok.com/@thedoctorbiker1" target="_blank" class="social-icon"><i
                         class="fab fa-tiktok"></i></a>
             </div>
-            <p class="copyright">&copy; 2026 Doctor Biker Garage. All rights reserved.</p>
+            <p class="copyright" data-i18n="footer_rights">&copy; 2026 Doctor Biker Garage. Tous droits réservés.</p>
         </div>
     </footer>
 
+    <script src="js/translations.js"></script>
     <script src="js/script.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
