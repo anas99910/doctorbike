@@ -35,7 +35,9 @@ const translations = {
         contact_sun: "Lundi: Fermé",
         contact_address: "Adresse",
         contact_phone: "Téléphone",
-        footer_rights: "&copy; 2026 Doctor Biker Garage. Tous droits réservés."
+        footer_rights: "&copy; 2026 Doctor Biker Garage. Tous droits réservés.",
+        footer_slogan: "Réanimer les Moteurs, Restaurer les Âmes.",
+        stat_years: "Années d'Expérience"
     },
     en: {
         nav_home: "Home",
@@ -73,7 +75,9 @@ const translations = {
         contact_sun: "Monday: Closed",
         contact_address: "Address",
         contact_phone: "Phone",
-        footer_rights: "&copy; 2026 Doctor Biker Garage. All rights reserved."
+        footer_rights: "&copy; 2026 Doctor Biker Garage. All rights reserved.",
+        footer_slogan: "Reviving Engines, Restoring Souls.",
+        stat_years: "Years Experience"
     }
 };
 
