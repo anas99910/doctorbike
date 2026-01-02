@@ -29,8 +29,8 @@ const translations = {
         contact_title: "Contactez-nous",
         contact_subtitle: "Nous serions ravis de vous entendre",
         contact_hours: "Heures d'ouverture",
-        contact_mon_sat: "Lun - Sam: 9h00 - 20h00",
-        contact_sun: "Dimanche: Fermé",
+        contact_mon_sat: "Mardi - Dimanche: 11h40 - 19h00",
+        contact_sun: "Lundi: Fermé",
         contact_address: "Adresse",
         contact_phone: "Téléphone",
         footer_rights: "&copy; 2026 Doctor Biker Garage. Tous droits réservés."
@@ -65,8 +65,8 @@ const translations = {
         contact_title: "Get In Touch",
         contact_subtitle: "We'd love to hear from you",
         contact_hours: "Opening Hours",
-        contact_mon_sat: "Mon - Sat: 9:00 AM - 8:00 PM",
-        contact_sun: "Sunday: Closed",
+        contact_mon_sat: "Tue - Sun: 11:40 AM - 7:00 PM",
+        contact_sun: "Monday: Closed",
         contact_address: "Address",
         contact_phone: "Phone",
         footer_rights: "&copy; 2026 Doctor Biker Garage. All rights reserved."
