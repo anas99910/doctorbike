@@ -150,8 +150,15 @@ img {
 
 .btn-outline {
     background: transparent;
-    color: var(--text-light);
-    border: 1px solid var(--text-light);
+    color: var(--text-white);
+    border: 1px solid var(--text-white);
+    transition: var(--transition);
+}
+
+.btn-outline:hover {
+    background-color: var(--text-white);
+    color: var(--bg-black);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
 .btn-outline-white:hover {
