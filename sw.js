@@ -1,12 +1,14 @@
-const CACHE_NAME = 'doctor-biker-v1';
+const CACHE_NAME = 'doctor-biker-v2';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
     './css/style.css',
     './js/script.js',
+    './js/translations.js', // Added this as it was missing
     './assets/logo.png',
     './assets/hero-bg.png',
     './assets/about-team-v2.jpg',
+    './assets/brands-banner.png',
     './assets/gallery5.png',
     './assets/gallery6.jpg',
     './assets/gallery7.jpg',
@@ -18,6 +20,8 @@ const ASSETS_TO_CACHE = [
 
 // Install Event
 self.addEventListener('install', event => {
+    // Force the waiting service worker to become the active service worker.
+    self.skipWaiting();
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
@@ -32,7 +36,6 @@ self.addEventListener('fetch', event => {
     event.respondWith(
         caches.match(event.request)
             .then(response => {
-                // Return cache hit or fetch from network
                 if (response) {
                     return response;
                 }
@@ -53,6 +56,9 @@ self.addEventListener('activate', event => {
                     }
                 })
             );
+        }).then(() => {
+            // Tell the active service worker to take control of the page immediately.
+            return self.clients.claim();
         })
     );
 });
