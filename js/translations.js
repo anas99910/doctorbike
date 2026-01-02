@@ -39,7 +39,6 @@ const translations = {
         footer_slogan: "Réanimer les Moteurs, Restaurer les Âmes.",
         footer_slogan: "Réanimer les Moteurs, Restaurer les Âmes.",
         stat_years: "Années d'Expérience",
-        hero_desc: "Spécialistes en réparation de motos, diagnostic électronique et personnalisation sur mesure. Redonnez vie à votre machine.",
         feat_expert: "Expertise Technique",
         feat_diag: "Diagnostic Avancé",
         feat_parts: "Pièces Premium"
@@ -84,7 +83,6 @@ const translations = {
         footer_slogan: "Reviving Engines, Restoring Souls.",
         footer_slogan: "Reviving Engines, Restoring Souls.",
         stat_years: "Years Experience",
-        hero_desc: "Specialists in motorcycle repair, electronic diagnostics, and custom builds. Bring your machine back to life.",
         feat_expert: "Technical Expertise",
         feat_diag: "Advanced Diagnostics",
         feat_parts: "Premium Parts"

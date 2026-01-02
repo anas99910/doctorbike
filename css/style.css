@@ -338,14 +338,6 @@ img {
     margin-top: 30px;
 }
 
-.hero-description {
-    font-size: 1.1rem;
-    color: var(--text-gray);
-    max-width: 600px;
-    margin: 0 auto 30px;
-    line-height: 1.6;
-}
-
 .hero-features {
     display: flex;
     gap: 30px;
@@ -848,6 +840,12 @@ footer h3 {
     .nav-link {
         display: block;
         padding: 15px;
+    }
+
+    .hero {
+        padding-top: 80px;
+        min-height: 100vh;
+        height: auto;
     }
 
     .hero h1 {
