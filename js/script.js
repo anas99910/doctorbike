@@ -187,3 +187,117 @@ window.resetWizard = function () {
     wizardStep(1);
 }
 
+// --- Rotating Reviews Logic ---
+const reviewsData = [
+    {
+        name: "Chad McCordic",
+        text: "These guys are some of the best mechanics ive met in morocco. They helped me through some complex problems as I was making my international trip and they were the nicest guys. I came in stressed and overheated and I left confidant and cool. (They fixed my bmw f650gs twin)",
+        rating: 5
+    },
+    {
+        name: "Paul Wood",
+        text: "A great place. They fixed by bike so am very happy..",
+        rating: 5
+    },
+    {
+        name: "Nabil Teodoro",
+        text: "Best mechanics ever ❤️ Always got your back to fix and repair your issues.",
+        rating: 5
+    },
+    {
+        name: "Anis Limami",
+        text: "Highly recommend, best place to mantain or fix your bike",
+        rating: 5
+    },
+    {
+        name: "Radouane Al Ghazouani",
+        text: "The best doctor bro ✌️",
+        rating: 5
+    },
+    {
+        name: "Mansour Boucitta",
+        text: "service excellent",
+        rating: 5
+    },
+    {
+        name: "Abderrahmane Bejjar",
+        text: "Good services",
+        rating: 5
+    },
+    {
+        name: "Nabil Maxab",
+        text: "Top Experience",
+        rating: 5
+    }
+];
+
+let currentReviewIndex = 0;
+const reviewsContainer = document.getElementById('reviews-container');
+
+function createReviewCard(review) {
+    const card = document.createElement('div');
+    card.className = 'review-card fade-in'; // Start with fade-in
+
+    // Star generation
+    let starsHtml = '';
+    for (let i = 0; i < 5; i++) {
+        if (i < review.rating) {
+            starsHtml += '<i class="fas fa-star" style="color: #FFD700; font-size: 0.8rem;"></i>';
+        } else {
+            starsHtml += '<i class="far fa-star"></i>';
+        }
+    }
+
+    card.innerHTML = `
+        <div style="margin-bottom: 10px;">${starsHtml}</div>
+        <p class="review-text">"${review.text}"</p>
+        <div class="reviewer">
+            <span class="name">${review.name}</span>
+            <span style="color: #666; font-size: 0.8rem; margin-left: 10px;">• Google Review</span>
+        </div>
+    `;
+    return card;
+}
+
+function renderReviews() {
+    if (!reviewsContainer) return;
+
+    // Fade out current content
+    const currentCards = reviewsContainer.querySelectorAll('.review-card');
+    currentCards.forEach(card => card.classList.add('fade-out'));
+
+    // Wait for fade out to finish before changing content
+    setTimeout(() => {
+        reviewsContainer.innerHTML = '';
+
+        // Get next 3 reviews
+        for (let i = 0; i < 3; i++) {
+            const index = (currentReviewIndex + i) % reviewsData.length;
+            const review = reviewsData[index];
+            reviewsContainer.appendChild(createReviewCard(review));
+        }
+
+        // Trigger reflow for fade-in
+        // void reviewsContainer.offsetWidth; 
+
+        // Cards are created with 'fade-in' class, so they should animate in
+    }, 500);
+}
+
+function startReviewRotation() {
+    // Initial render
+    renderReviews();
+
+    // Rotate every 60 seconds (60000ms)
+    setInterval(() => {
+        currentReviewIndex = (currentReviewIndex + 3) % reviewsData.length;
+        renderReviews();
+    }, 60000);
+}
+
+// Start when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    // existing listeners...
+    startReviewRotation();
+});
+

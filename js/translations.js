@@ -41,7 +41,9 @@ const translations = {
         stat_years: "Années d'Expérience",
         feat_expert: "Expertise Technique",
         feat_diag: "Diagnostic Avancé",
-        feat_parts: "Pièces Premium"
+        feat_parts: "Pièces Premium",
+        rate_us_super: "S'IL VOUS PLAÎT",
+        rate_us_title: "NOTEZ-NOUS"
     },
     en: {
         nav_home: "Home",
@@ -85,7 +87,9 @@ const translations = {
         stat_years: "Years Experience",
         feat_expert: "Technical Expertise",
         feat_diag: "Advanced Diagnostics",
-        feat_parts: "Premium Parts"
+        feat_parts: "Premium Parts",
+        rate_us_super: "PLEASE",
+        rate_us_title: "RATE US"
     }
 };
 
