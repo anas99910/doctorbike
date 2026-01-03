@@ -116,13 +116,74 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    window.addEventListener('appinstalled', () => {
-        // Hide the app-provided install promotion
-        if (installBtnContainer) {
-            installBtnContainer.style.display = 'none';
-        }
-        // Clear the deferredPrompt so it can be garbage collected
-        deferredPrompt = null;
-        console.log('PWA was installed');
-    });
 });
+
+// --- Diagnostic Wizard Logic ---
+let wizardState = {
+    sound: '',
+    feel: ''
+};
+
+window.wizardStep = function (stepNumber) {
+    document.querySelectorAll('.wizard-step').forEach(step => {
+        step.classList.remove('active');
+    });
+    document.getElementById(`step-${stepNumber}`).classList.add('active');
+}
+
+window.wizardSelect = function (category, value) {
+    wizardState[category] = value;
+
+    if (category === 'sound') {
+        // Move to step 2 after selecting sound
+        wizardStep(2);
+    } else if (category === 'feel') {
+        // Calculate result after selecting feel
+        calculateDiagnosis();
+        wizardStep(3);
+    }
+}
+
+window.calculateDiagnosis = function () {
+    let diagnosis = "";
+    const s = wizardState.sound;
+    const f = wizardState.feel;
+
+    // Simple Rule Engine
+    if (s === 'silence') {
+        diagnosis = "Cela ressemble fortement à un problème de <strong>Batterie ou de Démarreur</strong> (Battery/Starter Issue).";
+    } else if (s === 'clicking' && f === 'brakes') {
+        diagnosis = "Il pourrait s'agir de <strong>Plaquettes de Frein usées</strong> ou d'un disque voilé.";
+    } else if (s === 'grinding' && f === 'power_loss') {
+        diagnosis = "Attention : Possible problème de <strong>Transmission ou d'Embrayage</strong>.";
+    } else if (f === 'vibration') {
+        diagnosis = "Les vibrations indiquent souvent un <strong>Équilibrage des roues</strong> ou un problème de suspension.";
+    } else if (f === 'wobbly') {
+        diagnosis = "L'instabilité suggère une <strong>Pression des pneus</strong> incorrecte ou des roulements de direction usés.";
+    } else if (f === 'power_loss') {
+        diagnosis = "Une perte de puissance peut venir du <strong>Filtre à air, des Bougies ou de l'Injecteur</strong>.";
+    } else {
+        diagnosis = "Nous devons examiner votre moto de plus près pour un diagnostic précis.";
+    }
+
+    document.getElementById('wizard-result-text').innerHTML = diagnosis;
+}
+
+window.bookDiagnostic = function () {
+    const message = `Bonjour Doctor Biker, j'ai utilisé l'assistant diagnostic.
+Mes symptômes :
+- Son : ${wizardState.sound}
+- Ressenti : ${wizardState.feel}
+Diagnostic suggéré : ${document.getElementById('wizard-result-text').innerText}
+Je voudrais réserver un contrôle.`;
+
+    const phoneNumber = "212696344361";
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+}
+
+window.resetWizard = function () {
+    wizardState = { sound: '', feel: '' };
+    wizardStep(1);
+}
+

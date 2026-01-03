@@ -185,6 +185,87 @@
 
     </section>
 
+    <!-- Diagnostic Wizard Section -->
+    <section id="diagnostic-wizard" class="section bg-dark">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 data-i18n="wizard_title">Assistant Diagnostic</h2>
+                <div class="divider"></div>
+                <p class="subtitle" data-i18n="wizard_subtitle">Identifiez le problème de votre moto en quelques clics.
+                </p>
+            </div>
+
+            <div class="wizard-container">
+                <!-- Step 1: Sound -->
+                <div class="wizard-step active" id="step-1">
+                    <h3 data-i18n="wizard_step1_title">1. Qu'entendez-vous ?</h3>
+                    <div class="wizard-options">
+                        <button class="wizard-btn" onclick="wizardSelect('sound', 'clicking')"
+                            data-i18n="wizard_opt_clicking">
+                            <i class="fas fa-volume-up"></i> Claquement (Clicking)
+                        </button>
+                        <button class="wizard-btn" onclick="wizardSelect('sound', 'grinding')"
+                            data-i18n="wizard_opt_grinding">
+                            <i class="fas fa-cogs"></i> Grincement (Grinding)
+                        </button>
+                        <button class="wizard-btn" onclick="wizardSelect('sound', 'silence')"
+                            data-i18n="wizard_opt_silence">
+                            <i class="fas fa-volume-mute"></i> Silence (Ne démarre pas)
+                        </button>
+                        <button class="wizard-btn" onclick="wizardSelect('sound', 'normal')"
+                            data-i18n="wizard_opt_normal">
+                            <i class="fas fa-music"></i> Son Normal
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Feeling -->
+                <div class="wizard-step" id="step-2">
+                    <h3 data-i18n="wizard_step2_title">2. Que ressentez-vous ?</h3>
+                    <div class="wizard-options">
+                        <button class="wizard-btn" onclick="wizardSelect('feel', 'vibration')"
+                            data-i18n="wizard_opt_vibration">
+                            <i class="fas fa-wave-square"></i> Vibrations
+                        </button>
+                        <button class="wizard-btn" onclick="wizardSelect('feel', 'power_loss')"
+                            data-i18n="wizard_opt_powerloss">
+                            <i class="fas fa-tachometer-alt"></i> Perte de Puissance
+                        </button>
+                        <button class="wizard-btn" onclick="wizardSelect('feel', 'brakes')"
+                            data-i18n="wizard_opt_brakes">
+                            <i class="fas fa-exclamation-triangle"></i> Freinage Faible
+                        </button>
+                        <button class="wizard-btn" onclick="wizardSelect('feel', 'wobbly')"
+                            data-i18n="wizard_opt_wobbly">
+                            <i class="fas fa-bicycle"></i> Instabilité
+                        </button>
+                    </div>
+                    <button class="btn-text" onclick="wizardStep(1)">← <span
+                            data-i18n="wizard_back">Retour</span></button>
+                </div>
+
+                <!-- Step 3: Result -->
+                <div class="wizard-step" id="step-3">
+                    <div class="result-card">
+                        <div class="result-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h3 data-i18n="wizard_result_title">Diagnostic Préliminaire</h3>
+                        <p id="wizard-result-text" class="result-text">...</p>
+                        <div class="result-actions">
+                            <button class="btn btn-primary" onclick="bookDiagnostic()" data-i18n="wizard_book_btn">
+                                Réserver ce Diagnostic
+                            </button>
+                            <button class="btn btn-outline" onclick="resetWizard()" data-i18n="wizard_restart">
+                                Recommencer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Brands Section -->
     <section id="brands" class="section bg-black">
         <div class="container">
@@ -238,6 +319,8 @@
             </div>
         </div>
     </section>
+
+
 
     <!-- Reviews Section -->
     <section id="reviews" class="section bg-black">
