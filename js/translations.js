@@ -6,6 +6,8 @@ const translations = {
         nav_gallery: "Galerie",
         nav_reviews: "Avis",
         nav_contact: "Contact",
+        media_title: "Vlogs & Expériences",
+        media_subtitle: "Découvrez l'univers du garage en vidéo !",
         hero_subtitle: "Meilleur Garage Moto & Customisation à Casablanca",
         hero_contact: "Contactez-nous",
         hero_directions: "Itinéraire",
@@ -51,6 +53,11 @@ const translations = {
         nav_gallery: "Gallery",
         nav_reviews: "Reviews",
         nav_contact: "Contact",
+
+        // Media Section
+        media_title: "Vlogs & Experiences",
+        media_subtitle: "Discover the garage universe on video!",
+
         hero_subtitle: "Best Motorcycle Garage & Custom Shop in Casablanca",
         hero_contact: "Contact Us",
         hero_directions: "Get Directions",
