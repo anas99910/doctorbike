@@ -587,23 +587,13 @@ img {
     margin-top: 40px;
 }
 
-.gallery-item {
-    overflow: hidden;
-    border-radius: 8px;
-    height: 250px;
-    position: relative;
-    cursor: pointer;
-}
+/* .gallery-item styles have been moved/merged below to support overlays */
 
 .gallery-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
-}
-
-.gallery-item:hover img {
-    transform: scale(1.1);
 }
 
 /* Brands Section */
@@ -800,6 +790,60 @@ img {
     color: white;
     border: 1px solid var(--accent-white);
     /* Consistent with other buttons */
+}
+
+/* Gallery Overlay Effects (Instagram Style) */
+.gallery-item {
+    display: block;
+    /* Ensure anchor tag fills container */
+    overflow: hidden;
+    border-radius: 8px;
+    height: 250px;
+    position: relative;
+    cursor: pointer;
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    gap: 15px;
+}
+
+.gallery-overlay .stats {
+    display: flex;
+    gap: 20px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.gallery-overlay .stats span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gallery-overlay i {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
 }
 
 .social-btn:hover {

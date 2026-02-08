@@ -295,9 +295,29 @@ function startReviewRotation() {
     }, 60000);
 }
 
+// --- Random Social Stats for Gallery ---
+function randomizeGalleryStats() {
+    const likeElements = document.querySelectorAll('.random-likes');
+    const commentElements = document.querySelectorAll('.random-comments');
+
+    likeElements.forEach(el => {
+        // Random likes between 500 and 5000
+        const likes = Math.floor(Math.random() * (5000 - 500 + 1)) + 500;
+        // Format with 'k' if over 1000 (e.g., 1.2k)
+        el.innerText = likes > 999 ? (likes / 1000).toFixed(1) + 'k' : likes;
+    });
+
+    commentElements.forEach(el => {
+        // Random comments between 10 and 100
+        const comments = Math.floor(Math.random() * (100 - 10 + 1)) + 10;
+        el.innerText = comments;
+    });
+}
+
+// Start when DOM is ready
 // Start when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    // existing listeners...
+    randomizeGalleryStats();
     startReviewRotation();
 });
 
