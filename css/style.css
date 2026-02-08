@@ -68,6 +68,8 @@ ul {
 img {
     max-width: 100%;
     display: block;
+    height: auto;
+    /* Prevent stretching if width is constrained */
 }
 
 .container {
@@ -253,6 +255,8 @@ img {
 
 .logo img {
     height: 40px;
+    width: auto;
+    /* Ensure aspect ratio is kept */
 }
 
 .nav-menu {
