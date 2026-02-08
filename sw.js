@@ -1,4 +1,4 @@
-const CACHE_NAME = 'doctor-biker-v8';
+const CACHE_NAME = 'doctor-biker-v9';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
