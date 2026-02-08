@@ -51,17 +51,51 @@
 
     <!-- JSON-LD Structured Data: Site Identity -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Doctor Biker",
-      "url": "https://doctorbike.vercel.app/",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://doctorbike.vercel.app/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
+    [
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "Doctor Biker",
+          "url": "https://doctorbike.vercel.app/",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://doctorbike.vercel.app/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "MotorcycleRepair",
+          "name": "Doctor Biker",
+          "image": "https://doctorbike.vercel.app/assets/google-touch-icon.png",
+          "@id": "https://doctorbike.vercel.app",
+          "url": "https://doctorbike.vercel.app",
+          "telephone": "+212696344361",
+          "priceRange": "$$",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "2355, App6",
+            "addressLocality": "Casablanca",
+            "addressCountry": "MA"
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ],
+            "opens": "11:40",
+            "closes": "19:00"
+          },
+          "sameAs": [
+             "https://www.instagram.com/doctorbiker_garage"
+          ]
+        }
+    ]
     </script>
 </head>
 
@@ -71,7 +105,7 @@
     <nav class="navbar">
         <div class="container nav-container">
             <a href="#" class="logo">
-                <img src="assets/logo.png" alt="Doctor Biker Garage Logo">
+                <img src="assets/logo.png" alt="Doctor Biker Garage Logo" width="50" height="50">
                 <span>Doctor Biker</span>
             </a>
             <div class="menu-toggle" id="mobile-menu">
@@ -80,19 +114,16 @@
                 <span class="bar"></span>
             </div>
             <ul class="nav-menu">
-                <li><a href="#hero" class="nav-link active" data-i18n="nav_home">Accueil</a></li>
+                <li><a href="#home" class="nav-link" data-i18n="nav_home">Accueil</a></li>
                 <li><a href="#about" class="nav-link" data-i18n="nav_about">À Propos</a></li>
                 <li><a href="#services" class="nav-link" data-i18n="nav_services">Services</a></li>
                 <li><a href="#gallery" class="nav-link" data-i18n="nav_gallery">Galerie</a></li>
                 <li><a href="#reviews" class="nav-link" data-i18n="nav_reviews">Avis</a></li>
-                <li><a href="#contact" class="nav-link btn-primary" data-i18n="hero_contact">Contactez-nous</a></li>
-                <li id="install-btn-container" style="display: none;">
-                    <button id="install-btn" class="nav-link icon-btn" title="Install App">
-                        <i class="fas fa-download"></i>
-                    </button>
-                </li>
-                <li class="lang-switcher">
-                    <span class="lang-btn active" onclick="changeLanguage('fr')">FR</span> |
+                <li><a href="#contact" class="nav-link btn-contact" data-i18n="nav_contact">Contact</a></li>
+                <!-- Language Switcher -->
+                <li class="lang-switch">
+                    <span class="lang-btn active" onclick="changeLanguage('fr')">FR</span>
+                    <span class="divider">|</span>
                     <span class="lang-btn" onclick="changeLanguage('en')">EN</span>
                 </li>
             </ul>
@@ -100,10 +131,18 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="hero" class="hero">
-        <video autoplay muted loop playsinline class="hero-video" poster="assets/hero-bg.png">
-            <source src="assets/hero-video.mp4" type="video/mp4">
-        </video>
+    <section id="home" class="hero">
+        <!-- New Video Background -->
+        <div class="video-background">
+            <video autoplay muted loop playsinline poster="assets/hero_bg_minimal.png">
+                <source src="https://www.youtube.com/watch?v=kYI21h9x3zI" type="video/mp4">
+                <!-- Fallback to static image if video fails or on mobile data saver -->
+                <img src="assets/hero_bg_minimal.png" alt="Motorcycle Workshop Background">
+            </video>
+            <!-- Overlay to ensure text readability -->
+            <div class="video-overlay"></div>
+        </div>
+
         <div class="hero-overlay"></div>
         <div class="container hero-content">
             <h1 class="animate-up">Doctor Biker Garage</h1>
@@ -176,7 +215,8 @@
                     </div>
                 </div>
                 <div class="about-image">
-                    <img src="assets/about-team-v2.jpg" alt="Doctor Biker Team in Workshop">
+                    <img src="assets/about-team-v2.jpg" alt="Doctor Biker Team in Workshop" loading="lazy" width="600"
+                        height="400">
                 </div>
             </div>
         </div>
