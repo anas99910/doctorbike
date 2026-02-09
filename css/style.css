@@ -534,6 +534,12 @@ img {
     margin-top: 50px;
 }
 
+@media (min-width: 1200px) {
+    .services-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
 .service-card {
     background: rgba(30, 30, 30, 0.4);
     backdrop-filter: blur(10px);
