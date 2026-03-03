@@ -56,6 +56,7 @@
           "@context": "https://schema.org",
           "@type": "WebSite",
           "name": "Doctor Biker",
+          "alternateName": ["Doctor Biker Garage", "DoctorBike"],
           "url": "https://doctorbike.vercel.app/",
           "potentialAction": {
             "@type": "SearchAction",
@@ -118,6 +119,7 @@
                 <li><a href="#about" class="nav-link" data-i18n="nav_about">À Propos</a></li>
                 <li><a href="#services" class="nav-link" data-i18n="nav_services">Services</a></li>
                 <li><a href="#gallery" class="nav-link" data-i18n="nav_gallery">Galerie</a></li>
+                <li><a href="#" class="nav-link boutique-link" data-i18n="nav_boutique">Boutique</a></li>
                 <li><a href="#reviews" class="nav-link" data-i18n="nav_reviews">Avis</a></li>
                 <li><a href="#contact" class="nav-link btn-contact" data-i18n="nav_contact">Contact</a></li>
                 <!-- Language Switcher -->
@@ -546,6 +548,25 @@
         </div>
     </section>
 
+    <!-- Boutique Modal -->
+    <div id="boutiqueModal" class="modal">
+        <div class="modal-content boutique-modal text-center">
+            <span class="close-modal">&times;</span>
+            <h2 class="section-title" data-i18n="boutique_title" style="margin-top:20px;">Boutique</h2>
+            <div class="divider mx-auto"></div>
+
+            <div class="boutique-search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="boutiqueSearch" class="boutique-search-input"
+                    placeholder="Rechercher un produit..." data-i18n-placeholder="search_product">
+            </div>
+
+            <div class="services-grid" id="boutique-product-grid" style="margin-top:20px;">
+                <!-- Products will be injected here via JavaScript -->
+            </div>
+        </div>
+    </div>
+
     <!-- Contact Section -->
     <section id="contact" class="section bg-dark contact-section">
         <div class="container">
@@ -616,6 +637,13 @@
         </div>
     </footer>
 
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fas fa-info-circle"></i>
+        <span data-i18n="coming_soon_msg">Bientôt disponible !</span>
+    </div>
+
+    <script src="js/products.js"></script>
     <script src="js/translations.js?v=12"></script>
     <script src="js/script.js?v=12"></script>
     <script>

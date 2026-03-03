@@ -319,5 +319,95 @@ function randomizeGalleryStats() {
 document.addEventListener('DOMContentLoaded', () => {
     randomizeGalleryStats();
     startReviewRotation();
+
+    // Render Boutique Products
+    const productGrid = document.getElementById('boutique-product-grid');
+    if (productGrid && typeof bardahlProducts !== 'undefined') {
+        renderBoutiqueProducts(productGrid, bardahlProducts);
+    }
+
+    // Modal Logic for Boutique
+    const boutiqueModal = document.getElementById('boutiqueModal');
+    const boutiqueLinks = document.querySelectorAll('.boutique-link');
+    const closeModal = document.querySelector('.close-modal');
+
+    if (boutiqueLinks && boutiqueModal) {
+        boutiqueLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                boutiqueModal.style.display = "block";
+                document.body.style.overflow = "hidden"; // Disable background scrolling
+            });
+        });
+    }
+
+    if (closeModal) {
+        closeModal.addEventListener('click', () => {
+            boutiqueModal.style.display = "none";
+            document.body.style.overflow = "auto";
+        });
+    }
+
+    // Close when clicking outside of modal content
+    window.addEventListener('click', (e) => {
+        if (e.target == boutiqueModal) {
+            boutiqueModal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+    });
+
+    // Boutique Search Logic
+    const boutiqueSearchInput = document.getElementById('boutiqueSearch');
+    if (boutiqueSearchInput) {
+        boutiqueSearchInput.addEventListener('input', function (e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const productCards = document.querySelectorAll('#boutique-product-grid .service-card');
+
+            productCards.forEach(card => {
+                const title = card.querySelector('h4').textContent.toLowerCase();
+                if (title.includes(searchTerm)) {
+                    card.style.display = "flex"; // Restore our column layout display
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    }
+
 });
+
+// Render Dynamic Boutique Grid
+function renderBoutiqueProducts(gridElement, products) {
+    gridElement.innerHTML = ''; // Clear loading/existing items
+
+    products.forEach(product => {
+        // Construct the WhatsApp message URL
+        const message = encodeURIComponent(`Bonjour, je suis intéressé(e) par votre produit ${product.title}`);
+        const whatsappUrl = `https://wa.me/212696344361?text=${message}`;
+
+        const cardHTML = `
+            <div class="service-card" style="display: flex; flex-direction: column;">
+                <img src="${product.image}"
+                     alt="${product.title}"
+                     style="width: 100%; height: 250px; object-fit: contain; border-radius: 8px; margin-bottom: 25px;"
+                     loading="lazy">
+                <h4 style="margin-bottom: 25px; min-height: 48px; text-transform: uppercase;">${product.title}</h4>
+                <a href="${whatsappUrl}"
+                   target="_blank" class="btn-clay"
+                   style="margin-top: auto;">
+                    <div class="clay-icon-wrapper">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <span class="clay-text" data-i18n="btn_order">Commander</span>
+                </a>
+            </div>
+        `;
+        gridElement.insertAdjacentHTML('beforeend', cardHTML);
+    });
+
+    // Re-run translations on the newly injected elements
+    if (typeof updateContent === 'function') {
+        updateContent();
+    }
+}
 

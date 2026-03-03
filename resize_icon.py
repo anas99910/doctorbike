@@ -11,7 +11,8 @@ def resize_logo(input_path, output_path, size=(512, 512), padding_factor=0.8):
         # Determine new dimensions based on the max dimension allowed
         # User requested "fit to circle" like Instagram, so we ZOOM IN (scale > 1.0)
         # to ensure the logo fills the entire circular area.
-        scale_factor = 1.25 
+        # User requested "full stretched" in circle (TikTok Style). Max zoom to 1.9
+        scale_factor = 1.9 
         max_dim = int(min(size) * scale_factor)
         
         if aspect_ratio > 1:

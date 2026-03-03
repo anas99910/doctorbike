@@ -5,6 +5,10 @@ const translations = {
         nav_services: "Services",
         nav_gallery: "Galerie",
         nav_reviews: "Avis",
+        nav_boutique: "Boutique",
+        coming_soon_msg: "Bientôt disponible !",
+        boutique_title: "Boutique",
+        btn_order: "Commander",
         nav_contact: "Contact",
         media_title: "Vlogs & Expériences",
         media_subtitle: "Découvrez l'univers du garage en vidéo !",
@@ -52,6 +56,10 @@ const translations = {
         nav_services: "Services",
         nav_gallery: "Gallery",
         nav_reviews: "Reviews",
+        nav_boutique: "Boutique",
+        coming_soon_msg: "Coming soon!",
+        boutique_title: "Boutique",
+        btn_order: "Order Now",
         nav_contact: "Contact",
 
         // Media Section

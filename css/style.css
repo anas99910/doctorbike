@@ -170,55 +170,52 @@ img {
     box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
 }
 
-/* Apple/Sleek Modern Glow Button */
+/* Sleek Minimalist Service Button */
 .btn-glow {
     position: relative;
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--text-light);
-    border: none;
-    border-radius: 50px;
-    /* Highly rounded for Apple feel */
-    background-clip: padding-box;
-    border: 2px solid transparent;
+    background: transparent;
+    color: var(--primary-red);
+    border: 1px solid var(--primary-red);
+    border-radius: 5px;
+    /* Subtle rounded corners, not fully pill */
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    overflow: hidden;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+    /* Prevent stacking text */
 }
 
 .btn-glow::before {
     content: '';
     position: absolute;
     top: 0;
-    right: 0;
-    bottom: 0;
     left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: var(--primary-red);
+    transition: all 0.3s ease;
     z-index: -1;
-    margin: -2px;
-    border-radius: inherit;
-    background: linear-gradient(45deg, #ff3b30, #ff9500, #ffcc00, #007aff, #5856d6, #ff2d55);
-    background-size: 300% 300%;
-    animation: gradientborder 4s ease infinite;
 }
 
 .btn-glow:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px -10px rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    color: var(--text-white);
+    box-shadow: 0 4px 10px rgba(213, 0, 0, 0.2);
 }
 
-@keyframes gradientborder {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
+.btn-glow:hover::before {
+    width: 100%;
 }
+
 
 /* Navbar */
 .navbar {
@@ -1331,7 +1328,248 @@ footer h3 {
     transition: var(--transition);
 }
 
+/* Modal Base */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: var(--bg-dark);
+    margin: 5% auto;
+    padding: 40px;
+    border: 1px solid var(--primary-red);
+    width: 90%;
+    max-width: 1200px;
+    border-radius: 15px;
+    position: relative;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close-modal {
+    color: var(--text-gray);
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: var(--primary-red);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Toast Notification */
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: var(--primary-red);
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 16px 20px;
+    position: fixed;
+    z-index: 9999;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    font-size: 1.1rem;
+    box-shadow: 0 5px 15px rgba(213, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.5s, bottom 0.5s;
+    font-family: var(--font-heading);
+    font-weight: 500;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 50px;
+}
+
 .rate-us-card:hover .rate-icon {
     opacity: 1;
     transform: translateY(0) rotate(0deg);
+}
+
+/* Boutique Search Field */
+.boutique-search-container {
+    position: relative;
+    max-width: 500px;
+    margin: 20px auto 10px auto;
+}
+
+.boutique-search-input {
+    width: 100%;
+    padding: 12px 20px 12px 45px;
+    background-color: rgba(255, 255, 255, 0.05);
+    /* very light transparency */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    color: var(--text-white);
+    font-size: 1rem;
+    font-family: var(--font-body);
+    transition: all 0.3s ease;
+}
+
+.boutique-search-input:focus {
+    outline: none;
+    border-color: var(--primary-red);
+    background-color: rgba(5, 5, 5, 0.9);
+    box-shadow: 0 0 10px rgba(213, 0, 0, 0.2);
+}
+
+.search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-gray);
+    font-size: 1rem;
+    pointer-events: none;
+}
+
+/* Claymorphism Boutique Button */
+.btn-clay {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #8C523D;
+    /* Warm brown clay color */
+    border-radius: 50px;
+    /* Pill shape */
+    padding: 6px;
+    text-decoration: none;
+    /* Soft 3D lighting: Top-left highlight, bottom-right shadow */
+    box-shadow:
+        inset -3px -4px 8px rgba(0, 0, 0, 0.25),
+        inset 3px 4px 8px rgba(255, 255, 255, 0.15),
+        0 8px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    cursor: pointer;
+    margin-top: auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-clay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-20deg);
+    transition: none;
+}
+
+.btn-clay:hover::after {
+    animation: shineBtn 2s infinite;
+}
+
+@keyframes shineBtn {
+    0% {
+        left: -100%;
+    }
+
+    30% {
+        left: 200%;
+    }
+
+    100% {
+        left: 200%;
+    }
+}
+
+.btn-clay:hover {
+    text-decoration: none;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow:
+        inset -3px -4px 8px rgba(0, 0, 0, 0.25),
+        inset 3px 4px 8px rgba(255, 255, 255, 0.25),
+        0 12px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn-clay:active {
+    transform: scale(0.96);
+    box-shadow:
+        inset -2px -3px 6px rgba(0, 0, 0, 0.25),
+        inset 2px 3px 6px rgba(255, 255, 255, 0.15),
+        0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.clay-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    /* Perfect Circle shape */
+    height: 45px;
+    background-color: #8C523D;
+    border-radius: 50%;
+    flex-shrink: 0;
+    /* Carved in effect: Top-left dark shadow, bottom-right light shadow */
+    box-shadow:
+        inset 3px 4px 6px rgba(0, 0, 0, 0.4),
+        inset -3px -4px 6px rgba(255, 255, 255, 0.15);
+}
+
+.clay-icon-wrapper i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+    color: #ffd27a;
+    /* Warm fire-like yellow/orange for the icon */
+    /* Give the icon a 3D pop so it looks like it sits inside the groove */
+    filter: drop-shadow(0px 3px 2px rgba(0, 0, 0, 0.5));
+    transform: translateX(1px);
+    /* Slight optical center adjustment */
+}
+
+.clay-text {
+    flex: 1;
+    text-align: center;
+    color: #F8E9D2;
+    /* Creamy off-white */
+    font-weight: 700;
+    font-size: 1.1rem;
+    font-family: var(--font-heading);
+    letter-spacing: 0.5px;
+    margin-right: 20px;
+    /* Offset the text to visually center it relative to the button width */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
