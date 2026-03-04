@@ -438,7 +438,7 @@ function getProductCategory(title) {
     if (t.includes('FILTRE') || t.includes('FILTRE A HUILE') || t.includes('HF') || t.includes('KN') || t.includes('HIFLOFILTRO')) {
         return 'filtre';
     }
-    if (t.includes('PNEU') || t.includes('DUNLOP') || t.includes('MICHELIN') || t.includes('WANDA') || t.includes('MITAS') || t.includes('TIMSUN') || t.includes('BRIDGESTONE')) {
+    if (t.includes('PNEU') || t.includes('DUNLOP') || t.includes('MICHELIN') || t.includes('WANDA') || t.includes('MITAS') || t.includes('TIMSUN') || t.includes('BRIDGESTONE') || t.includes('BUGGY') || t.includes('P3051')) {
         return 'pneu';
     }
     if (t.includes('10W') || t.includes('5W') || t.includes('15W') || t.includes('20W') || t.includes('0W') ||
@@ -480,7 +480,7 @@ function getProductBrand(title, image) {
     if (t.includes('MICHELIN')) return 'michelin';
     if (t.includes('DUNLOP')) return 'dunlop';
     if (t.includes('BRIDGESTONE')) return 'bridgestone';
-    if (t.includes('WANDA')) return 'wanda';
+    if (t.includes('WANDA') || t.includes('BUGGY') || t.includes('P3051')) return 'wanda';
     if (t.includes('MITAS')) return 'mitas';
     if (t.includes('TIMSUN')) return 'timsun';
 
