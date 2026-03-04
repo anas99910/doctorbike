@@ -1,4 +1,4 @@
-const CACHE_NAME = 'doctor-biker-v14';
+const CACHE_NAME = 'doctor-biker-v15';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -6,6 +6,7 @@ const ASSETS_TO_CACHE = [
     './js/script.js',
     './js/products.js',
     './js/translations.js',
+    './boutique.html',
     './assets/logo.png',
     './assets/hero-bg.png',
     './assets/about-team-v2.jpg',

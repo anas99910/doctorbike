@@ -331,19 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderBoutiqueProducts(productGrid, bardahlProducts);
     }
 
-    // Modal Logic for Boutique
-    const boutiqueModal = document.getElementById('boutiqueModal');
-    const boutiqueLinks = document.querySelectorAll('.boutique-link');
-
-    if (boutiqueLinks && boutiqueModal) {
-        boutiqueLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                boutiqueModal.style.display = "block";
-                document.body.style.overflow = "hidden"; // Disable background scrolling
-            });
-        });
-    }
+    // (Boutique modal logic removed - now a dedicated page)
 
     // Global Hash Checker for Deep Linking (called here and during render)
     window.checkHashForProduct = function () {
@@ -351,9 +339,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const slug = window.location.hash.replace('#product-', '');
             const card = document.querySelector(`.service-card[data-slug="${slug}"]`);
             if (card) {
-                if (boutiqueModal) {
-                    boutiqueModal.style.display = 'block';
-                }
                 card.click();
             }
         }
@@ -592,7 +577,7 @@ window.initShopSlider = function () {
         const img = product.image || '';
 
         htmlContent += `
-            <div class="shop-slide-card" onclick="document.querySelector('.boutique-link').click()">
+            <div class="shop-slide-card" onclick="window.location.href='boutique.html#product-${product.slug || ''}'">
                 <img src="${img}" alt="${title}" class="shop-slide-img" loading="lazy">
                 <h4 class="shop-slide-title">${title}</h4>
             </div>

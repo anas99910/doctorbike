@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique Moto | Doctor Biker Garage Casablanca</title>
+    <meta name="description"
+        content="Découvrez notre boutique de pièces, huiles, et accessoires moto à Casablanca. Bardahl, Ipone, Motul, et plus.">
+    <meta name="keywords"
+        content="Boutique Moto Casablanca, Huile Moto Maroc, Bardahl, Ipone, Accessoires Moto, Doctor Biker">
+    <meta name="author" content="Doctor Biker Garage">
+    <meta name="application-name" content="Doctor Biker">
+    <meta name="apple-mobile-web-app-title" content="Doctor Biker">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://doctorbike.vercel.app/boutique.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://doctorbike.vercel.app/boutique.html">
+    <meta property="og:title" content="Boutique Moto | Doctor Biker Garage Casablanca">
+    <meta property="og:description"
+        content="Découvrez notre boutique de pièces, huiles, et accessoires moto à Casablanca. Bardahl, Ipone, Motul, et plus.">
+    <meta property="og:image" content="https://doctorbike.vercel.app/assets/logo.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <meta name="theme-color" content="#D50000">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="assets/google-touch-icon.png" sizes="512x512">
+    <link rel="apple-touch-icon" href="assets/google-touch-icon.png">
+    <link rel="stylesheet" href="css/style.css?v=15">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Open Graph: Site Name -->
+    <meta property="og:site_name" content="Doctor Biker">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" style="background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(10px);">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="Doctor Biker Garage Logo" width="50" height="50">
+                <span>Doctor Biker</span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html#home" class="nav-link" data-i18n="nav_home">Accueil</a></li>
+                <li><a href="index.html#about" class="nav-link" data-i18n="nav_about">À Propos</a></li>
+                <li><a href="index.html#services" class="nav-link" data-i18n="nav_services">Services</a></li>
+                <li><a href="index.html#gallery" class="nav-link" data-i18n="nav_gallery">Galerie</a></li>
+                <li><a href="boutique.html" class="nav-link active" data-i18n="nav_boutique">Boutique</a></li>
+                <li><a href="index.html#reviews" class="nav-link" data-i18n="nav_reviews">Avis</a></li>
+                <li><a href="index.html#contact" class="nav-link btn-contact" data-i18n="nav_contact">Contact</a></li>
+                <!-- Language Switcher -->
+                <li class="lang-switch">
+                    <span class="lang-btn active" onclick="changeLanguage('fr')">FR</span>
+                    <span class="divider">|</span>
+                    <span class="lang-btn" onclick="changeLanguage('en')">EN</span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Boutique Dedicated Section -->
+    <section id="boutique-page" class="section bg-black" style="padding-top: 120px; min-height: 80vh;">
+        <div class="container text-center">
+            <h1 class="section-title" data-i18n="boutique_title" style="margin-top:20px;">Boutique</h1>
+            <div class="divider mx-auto"></div>
+
+            <div class="boutique-category-filters" id="boutique-category-filters" style="margin-top: 30px;">
+                <button class="category-btn active" data-filter="all">Tout</button>
+                <button class="category-btn" data-filter="oil">Huiles Moteur</button>
+                <button class="category-btn" data-filter="chain">Entretien Chaîne</button>
+                <button class="category-btn" data-filter="maintenance">Entretien & Additifs</button>
+            </div>
+
+            <div class="boutique-search-container" style="margin-bottom: 40px;">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="boutiqueSearch" class="boutique-search-input"
+                    placeholder="Rechercher un produit..." data-i18n-placeholder="search_product">
+            </div>
+
+            <div class="services-grid" id="boutique-product-grid">
+                <!-- Products will be injected here via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Detail Modal -->
+    <div id="productDetailModal" class="modal">
+        <div class="modal-content product-detail-modal">
+            <span class="close-detail-modal">&times;</span>
+            <div class="product-detail-layout">
+                <div class="product-detail-image-container">
+                    <img id="detailImage" src="" alt="Product Image" class="product-detail-img">
+                </div>
+                <div class="product-detail-info">
+                    <h2 id="detailTitle" class="detail-title"></h2>
+                    <div class="divider"></div>
+                    <p id="detailDesc" class="detail-specific-description"></p>
+                    <p class="detail-description" data-i18n="product_availability">Disponible en boutique.
+                        Contactez-nous pour réserver.</p>
+                    <a id="detailOrderBtn" href="#" target="_blank" class="btn-clay detail-order-btn">
+                        <div class="clay-icon-wrapper">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <span class="clay-text" data-i18n="btn_order">Commander</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="margin-top: auto;">
+        <div class="container footer-content text-center">
+            <img src="assets/logo.png" alt="Doctor Biker Garage" class="footer-logo">
+            <h3 data-i18n="footer_slogan">Réanimer les Moteurs, Restaurer les Âmes.</h3>
+            <div class="footer-socials">
+                <a href="https://www.instagram.com/thedoctorbiker1/" target="_blank" class="social-icon"><i
+                        class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@thedoctorbiker1" target="_blank" class="social-icon"><i
+                        class="fab fa-tiktok"></i></a>
+            </div>
+            <p class="copyright" data-i18n="footer_rights">&copy; 2026 Doctor Biker Garage. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fas fa-info-circle"></i>
+        <span data-i18n="coming_soon_msg">Bientôt disponible !</span>
+    </div>
+
+    <script src="js/products.js"></script>
+    <script src="js/translations.js?v=15"></script>
+    <script src="js/script.js?v=15"></script>
+</body>
+
+</html>
