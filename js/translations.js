@@ -48,7 +48,9 @@ const translations = {
         feat_diag: "Diag Précis",
         feat_parts: "Pièces Origine",
         rate_us_super: "S'IL VOUS PLAÎT",
-        rate_us_title: "NOTEZ-NOUS"
+        rate_us_title: "NOTEZ-NOUS",
+        shop_slider_title: "Notre Boutique Moto",
+        shop_slider_btn: "Visiter la Boutique"
     },
     en: {
         nav_home: "Home",
@@ -102,7 +104,9 @@ const translations = {
         feat_diag: "Precise Diag",
         feat_parts: "OEM Parts",
         rate_us_super: "PLEASE",
-        rate_us_title: "RATE US"
+        rate_us_title: "RATE US",
+        shop_slider_title: "Our Moto Shop",
+        shop_slider_btn: "Visit Boutique"
     }
 };
 

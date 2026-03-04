@@ -16,6 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
         navMenu.classList.remove('active');
     }));
 
+    // Initialize the Shop Slider Teaser
+    if (typeof initShopSlider === 'function') {
+        initShopSlider();
+    }
+
     // Smart WhatsApp Booking
     window.bookService = function (serviceType) {
         const phoneNumber = "212696344361";
@@ -567,3 +572,33 @@ window.addEventListener('hashchange', () => {
         window.checkHashForProduct();
     }
 });
+
+// Function to initialize the Shop Slider Teaser
+window.initShopSlider = function () {
+    const track = document.getElementById('shop-slider-track');
+    if (!track) return;
+
+    // Ensure products exist
+    if (typeof bardahlProducts === 'undefined') return;
+
+    // Pick ~10 products
+    const selectedProducts = [
+        ...bardahlProducts.slice(0, 10)
+    ];
+
+    let htmlContent = '';
+    selectedProducts.forEach(product => {
+        const title = product.title || '';
+        const img = product.image || '';
+
+        htmlContent += `
+            <div class="shop-slide-card" onclick="document.querySelector('.boutique-link').click()">
+                <img src="${img}" alt="${title}" class="shop-slide-img" loading="lazy">
+                <h4 class="shop-slide-title">${title}</h4>
+            </div>
+        `;
+    });
+
+    // To make infinite scroll seamless, duplicate the content once
+    track.innerHTML = htmlContent + htmlContent;
+};
