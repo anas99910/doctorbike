@@ -65,8 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fade in sections
     document.querySelectorAll('section').forEach(section => {
-        section.classList.add('fade-in-section');
-        observer.observe(section);
+        if (section.id !== 'boutique-page') {
+            section.classList.add('fade-in-section');
+            observer.observe(section);
+        }
     });
 
     // Navbar scroll effect
@@ -333,16 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // (Boutique modal logic removed - now a dedicated page)
 
-    // Global Hash Checker for Deep Linking (called here and during render)
-    window.checkHashForProduct = function () {
-        if (window.location.hash.startsWith('#product-')) {
-            const slug = window.location.hash.replace('#product-', '');
-            const card = document.querySelector(`.service-card[data-slug="${slug}"]`);
-            if (card) {
-                card.click();
-            }
-        }
-    };
+    // (Duplicate checkHashForProduct removed)
 
     // Close logic for modals
     document.querySelectorAll('.close-modal, .close-detail-modal').forEach(btn => {
@@ -378,9 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    window.addEventListener('hashchange', () => {
-        window.checkHashForProduct();
-    });
+    // (Duplicate hashchange removed)
 
     // Boutique Search & Category Logic
     const boutiqueSearchInput = document.getElementById('boutiqueSearch');
