@@ -329,7 +329,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Modal Logic for Boutique
     const boutiqueModal = document.getElementById('boutiqueModal');
     const boutiqueLinks = document.querySelectorAll('.boutique-link');
-    const closeModal = document.querySelector('.close-modal');
 
     if (boutiqueLinks && boutiqueModal) {
         boutiqueLinks.forEach(link => {
@@ -341,60 +340,140 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (closeModal) {
-        closeModal.addEventListener('click', () => {
-            boutiqueModal.style.display = "none";
-            document.body.style.overflow = "auto";
-        });
-    }
+    // Global Hash Checker for Deep Linking (called here and during render)
+    window.checkHashForProduct = function () {
+        if (window.location.hash.startsWith('#product-')) {
+            const slug = window.location.hash.replace('#product-', '');
+            const card = document.querySelector(`.service-card[data-slug="${slug}"]`);
+            if (card) {
+                if (boutiqueModal) {
+                    boutiqueModal.style.display = 'block';
+                }
+                card.click();
+            }
+        }
+    };
 
-    // Close when clicking outside of modal content
-    window.addEventListener('click', (e) => {
-        if (e.target == boutiqueModal) {
-            boutiqueModal.style.display = "none";
-            document.body.style.overflow = "auto";
+    // Close logic for modals
+    document.querySelectorAll('.close-modal, .close-detail-modal').forEach(btn => {
+        btn.addEventListener('click', function () {
+            this.closest('.modal').style.display = "none";
+
+            // Revert URL if closing a deep-linked modal but keep the base hash if necessary
+            if (window.location.hash.startsWith('#product-')) {
+                // Push state without hash
+                history.pushState('', document.title, window.location.pathname + window.location.search);
+            }
+
+            // Check if any modal is still open before re-enabling overflow
+            const openModals = Array.from(document.querySelectorAll('.modal')).some(m => m.style.display === 'block' || m.style.display === 'flex');
+            if (!openModals) {
+                document.body.style.overflow = "auto";
+            }
+        });
+    });
+
+    window.addEventListener('click', function (e) {
+        if (e.target.classList.contains('modal')) {
+            e.target.style.display = "none";
+
+            if (window.location.hash.startsWith('#product-')) {
+                history.pushState('', document.title, window.location.pathname + window.location.search);
+            }
+
+            const openModals = Array.from(document.querySelectorAll('.modal')).some(m => m.style.display === 'block' || m.style.display === 'flex');
+            if (!openModals) {
+                document.body.style.overflow = "auto";
+            }
         }
     });
 
-    // Boutique Search Logic
+    window.addEventListener('hashchange', () => {
+        window.checkHashForProduct();
+    });
+
+    // Boutique Search & Category Logic
     const boutiqueSearchInput = document.getElementById('boutiqueSearch');
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    let currentCategory = 'all';
+    let currentSearchTerm = '';
+
+    function filterBoutique() {
+        const productCards = document.querySelectorAll('#boutique-product-grid .service-card');
+        productCards.forEach(card => {
+            const title = card.querySelector('h4').textContent.toLowerCase();
+            const category = card.getAttribute('data-category');
+
+            const matchesSearch = title.includes(currentSearchTerm);
+            const matchesCategory = currentCategory === 'all' || category === currentCategory;
+
+            if (matchesSearch && matchesCategory) {
+                card.style.display = "flex";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    }
+
     if (boutiqueSearchInput) {
         boutiqueSearchInput.addEventListener('input', function (e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const productCards = document.querySelectorAll('#boutique-product-grid .service-card');
+            currentSearchTerm = e.target.value.toLowerCase();
+            filterBoutique();
+        });
+    }
 
-            productCards.forEach(card => {
-                const title = card.querySelector('h4').textContent.toLowerCase();
-                if (title.includes(searchTerm)) {
-                    card.style.display = "flex"; // Restore our column layout display
-                } else {
-                    card.style.display = "none";
-                }
+    if (categoryBtns) {
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentCategory = this.getAttribute('data-filter');
+                filterBoutique();
             });
         });
     }
 
 });
 
+// Helper to determine product category by keywords
+function getProductCategory(title) {
+    const t = title.toUpperCase();
+    if (t.includes('10W') || t.includes('5W') || t.includes('15W') || t.includes('20W') || t.includes('0W') ||
+        t.includes('GEAR BOX') || t.includes('FOURCHE') || t.includes('KXT') || t.includes('XTM') ||
+        t.includes('XTC') || t.includes('XT4S') || t.includes('SHOGUN') || t.includes('KATANA') ||
+        t.includes('R4000') || t.includes('HUILE') || t.includes('2T') || t.includes('4T') ||
+        t.includes('10.3') || t.includes('10.4') || t.includes('15.5') || t.includes('20.5')) {
+        return 'oil';
+    }
+    if (t.includes('CHAIN') || t.includes('CHAINE')) {
+        return 'chain';
+    }
+    return 'maintenance';
+}
+
 // Render Dynamic Boutique Grid
 function renderBoutiqueProducts(gridElement, products) {
     gridElement.innerHTML = ''; // Clear loading/existing items
 
     products.forEach(product => {
+        // Construct a safe URL slug for deep linking
+        const slug = product.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
         // Construct the WhatsApp message URL
         const message = encodeURIComponent(`Bonjour, je suis intéressé(e) par votre produit ${product.title}`);
         const whatsappUrl = `https://wa.me/212696344361?text=${message}`;
 
+        const category = getProductCategory(product.title);
         const cardHTML = `
-            <div class="service-card" style="display: flex; flex-direction: column;">
+            <div class="service-card" data-category="${category}" data-slug="${slug}" style="display: flex; flex-direction: column; cursor: pointer;">
                 <img src="${product.image}"
                      alt="${product.title}"
                      style="width: 100%; height: 250px; object-fit: contain; border-radius: 8px; margin-bottom: 25px;"
                      loading="lazy">
-                <h4 style="margin-bottom: 25px; min-height: 48px; text-transform: uppercase;">${product.title}</h4>
+                <h4 class="product-card-title" style="margin-bottom: 25px; min-height: 48px; text-transform: uppercase; pointer-events: none;">${product.title}</h4>
                 <a href="${whatsappUrl}"
                    target="_blank" class="btn-clay"
-                   style="margin-top: auto;">
+                   style="margin-top: auto; pointer-events: none;">
                     <div class="clay-icon-wrapper">
                         <i class="fab fa-whatsapp"></i>
                     </div>
@@ -405,9 +484,53 @@ function renderBoutiqueProducts(gridElement, products) {
         gridElement.insertAdjacentHTML('beforeend', cardHTML);
     });
 
+    // Add click event listeners to the new cards to open the detail modal
+    document.querySelectorAll('#boutique-product-grid .service-card').forEach((card, index) => {
+        card.addEventListener('click', () => {
+            openProductDetail(products[index]);
+        });
+    });
+
     // Re-run translations on the newly injected elements
     if (typeof updateContent === 'function') {
         updateContent();
     }
+
+    // Check if we arrived via a deep link right after rendering is done
+    if (typeof window.checkHashForProduct === 'function') {
+        window.checkHashForProduct();
+    }
 }
+
+// Function to open the Product Detail Modal
+function openProductDetail(product) {
+    const modal = document.getElementById('productDetailModal');
+    const titleEl = document.getElementById('detailTitle');
+    const imgEl = document.getElementById('detailImage');
+    const orderBtn = document.getElementById('detailOrderBtn');
+    const descEl = document.getElementById('detailDesc');
+
+    // Set content
+    titleEl.textContent = product.title;
+    imgEl.src = product.image;
+    imgEl.alt = product.title;
+
+    // Set Description if available
+    if (descEl) {
+        descEl.textContent = product.description || "Produit d'entretien de première qualité, sélectionné spécialement pour votre moto.";
+    }
+
+    // Create WhatsApp link directly inside the detail view
+    const message = encodeURIComponent(`Bonjour, je suis intéressé(e) par votre produit ${product.title}`);
+    orderBtn.href = `https://wa.me/212696344361?text=${message}`;
+
+    // Update URL for deep linking
+    const slug = product.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    history.pushState({ modal: true }, '', `#product-${slug}`);
+
+    // Show modal and disable background scroll
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+}
+
 

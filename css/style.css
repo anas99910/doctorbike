@@ -1416,9 +1416,164 @@ footer h3 {
     bottom: 50px;
 }
 
+/* Product Detail Modal Styles */
+.product-detail-modal {
+    max-width: 800px;
+    padding: 30px 40px 30px 40px;
+    background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+    height: fit-content !important;
+    min-height: 0 !important;
+}
+
+.close-detail-modal {
+    color: var(--text-gray);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+
+.close-detail-modal:hover,
+.close-detail-modal:focus {
+    color: var(--primary-red);
+    text-decoration: none;
+}
+
+.product-detail-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    /* tightly packed gap */
+    align-items: center;
+    /* Center to prevent stretching empty space */
+    margin-top: 15px;
+}
+
+.product-detail-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.product-detail-img {
+    max-width: 100%;
+    max-height: 250px;
+    object-fit: contain;
+    border-radius: 8px;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+}
+
+.product-detail-info {
+    flex: 1;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-title {
+    font-size: 2rem;
+    color: var(--text-white);
+    margin-bottom: 10px;
+}
+
+/* Boutique Grid Title Truncation */
+.product-card-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.detail-specific-description {
+    color: var(--text-gray);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.product-detail-info .divider {
+    margin-left: 0;
+    margin-bottom: 20px;
+}
+
+.detail-description {
+    color: var(--text-gray);
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    text-transform: uppercase;
+}
+
+.detail-order-btn {
+    align-self: flex-start;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 0 !important;
+}
+
+@media (max-width: 768px) {
+    .product-detail-layout {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .product-detail-info {
+        text-align: center;
+        align-items: center;
+    }
+
+    .product-detail-info .divider {
+        margin: 0 auto 20px auto;
+    }
+}
+
 .rate-us-card:hover .rate-icon {
     opacity: 1;
     transform: translateY(0) rotate(0deg);
+}
+
+/* Boutique Category Filters */
+.boutique-category-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.category-btn {
+    background: transparent;
+    color: var(--text-gray);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border-radius: 20px;
+    /* Pill shape */
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-btn:hover {
+    color: var(--text-white);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.category-btn.active {
+    background-color: var(--primary-red);
+    color: white;
+    border-color: var(--primary-red);
+    box-shadow: 0 4px 10px rgba(213, 0, 0, 0.3);
 }
 
 /* Boutique Search Field */
