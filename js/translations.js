@@ -10,6 +10,16 @@ const translations = {
         boutique_title: "Boutique",
         btn_order: "Commander",
         nav_contact: "Contact",
+
+        filter_all_cats: "Tout (Catégorie)",
+        filter_pneus: "Pneus",
+        filter_oil: "Huiles Moteur",
+        filter_filtre: "Filtres à huile",
+        filter_chain: "Entretien Chaîne",
+        filter_maintenance: "Entretien & Additifs",
+        filter_all_brands: "Toutes (Marques)",
+        search_product: "Rechercher un produit...",
+        product_availability: "Disponible en boutique. Contactez-nous pour réserver.",
         media_title: "Vlogs & Expériences",
         media_subtitle: "Découvrez l'univers du garage en vidéo !",
         hero_subtitle: "Meilleur Garage Moto & Customisation à Casablanca",
@@ -58,11 +68,21 @@ const translations = {
         nav_services: "Services",
         nav_gallery: "Gallery",
         nav_reviews: "Reviews",
-        nav_boutique: "Boutique",
+        nav_boutique: "Shop",
         coming_soon_msg: "Coming soon!",
-        boutique_title: "Boutique",
+        boutique_title: "Shop",
         btn_order: "Order Now",
         nav_contact: "Contact",
+
+        filter_all_cats: "All (Category)",
+        filter_pneus: "Tires",
+        filter_oil: "Engine Oils",
+        filter_filtre: "Oil Filters",
+        filter_chain: "Chain Maintenance",
+        filter_maintenance: "Additives & Care",
+        filter_all_brands: "All (Brands)",
+        search_product: "Search for a product...",
+        product_availability: "Available in store. Contact us to reserve.",
 
         // Media Section
         media_title: "Vlogs & Experiences",
@@ -115,6 +135,14 @@ function changeLanguage(lang) {
         const key = element.getAttribute('data-i18n');
         if (translations[lang] && translations[lang][key]) {
             element.innerHTML = translations[lang][key];
+        }
+    });
+
+    // Translate Placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+        const key = element.getAttribute('data-i18n-placeholder');
+        if (translations[lang] && translations[lang][key]) {
+            element.setAttribute('placeholder', translations[lang][key]);
         }
     });
 

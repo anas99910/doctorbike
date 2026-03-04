@@ -35,7 +35,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="assets/google-touch-icon.png" sizes="512x512">
     <link rel="apple-touch-icon" href="assets/google-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css?v=17">
+    <link rel="stylesheet" href="css/style.css?v=20">
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -82,20 +82,34 @@
             <div class="divider mx-auto"></div>
 
             <div class="boutique-category-filters" id="boutique-category-filters" style="margin-top: 30px;">
-                <button class="category-btn active" data-filter="all">Tout (Catégorie)</button>
-                <button class="category-btn" data-filter="oil">Huiles Moteur</button>
-                <button class="category-btn" data-filter="chain">Entretien Chaîne</button>
-                <button class="category-btn" data-filter="maintenance">Entretien & Additifs</button>
+                <button class="category-btn active" data-filter="all" data-i18n="filter_all_cats">Tout
+                    (Catégorie)</button>
+                <button class="category-btn" data-filter="pneu" data-i18n="filter_pneus">Pneus</button>
+                <button class="category-btn" data-filter="oil" data-i18n="filter_oil">Huiles Moteur</button>
+                <button class="category-btn" data-filter="filtre" data-i18n="filter_filtre">Filtres à huile</button>
+                <button class="category-btn" data-filter="chain" data-i18n="filter_chain">Entretien Chaîne</button>
+                <button class="category-btn" data-filter="maintenance" data-i18n="filter_maintenance">Entretien &
+                    Additifs</button>
             </div>
 
             <div class="boutique-category-filters boutique-brand-filters" id="boutique-brand-filters"
                 style="margin-top: 15px; margin-bottom: 25px;">
-                <button class="brand-btn category-btn active" data-filter="all">Toutes (Marques)</button>
+                <button class="brand-btn category-btn active" data-filter="all" data-i18n="filter_all_brands">Toutes
+                    (Marques)</button>
                 <button class="brand-btn category-btn" data-filter="bardahl">Bardahl</button>
                 <button class="brand-btn category-btn" data-filter="ipone">Ipone</button>
                 <button class="brand-btn category-btn" data-filter="motul">Motul</button>
                 <button class="brand-btn category-btn" data-filter="liquimoly">Liqui Moly</button>
                 <button class="brand-btn category-btn" data-filter="castrol">Castrol</button>
+                <button class="brand-btn category-btn" data-filter="michelin">Michelin</button>
+                <button class="brand-btn category-btn" data-filter="dunlop">Dunlop</button>
+                <button class="brand-btn category-btn" data-filter="bridgestone">Bridgestone</button>
+                <button class="brand-btn category-btn" data-filter="mitas">Mitas</button>
+                <button class="brand-btn category-btn" data-filter="wanda">Wanda</button>
+                <button class="brand-btn category-btn" data-filter="timsun">Timsun</button>
+                <button class="brand-btn category-btn" data-filter="hiflofiltro">Hiflofiltro</button>
+                <button class="brand-btn category-btn" data-filter="kn">K&N</button>
+                <button class="brand-btn category-btn" data-filter="miw">MIW</button>
             </div>
 
             <div class="boutique-search-container" style="margin-bottom: 40px;">
@@ -157,8 +171,8 @@
     </div>
 
     <script src="js/products.js"></script>
-    <script src="js/translations.js?v=17"></script>
-    <script src="js/script.js?v=17"></script>
+    <script src="js/translations.js?v=20"></script>
+    <script src="js/script.js?v=20"></script>
 </body>
 
 </html>

@@ -435,6 +435,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // Helper to determine product category by keywords
 function getProductCategory(title) {
     const t = title.toUpperCase();
+    if (t.includes('FILTRE') || t.includes('FILTRE A HUILE') || t.includes('HF') || t.includes('KN') || t.includes('HIFLOFILTRO')) {
+        return 'filtre';
+    }
+    if (t.includes('PNEU') || t.includes('DUNLOP') || t.includes('MICHELIN') || t.includes('WANDA') || t.includes('MITAS') || t.includes('TIMSUN') || t.includes('BRIDGESTONE')) {
+        return 'pneu';
+    }
     if (t.includes('10W') || t.includes('5W') || t.includes('15W') || t.includes('20W') || t.includes('0W') ||
         t.includes('GEAR BOX') || t.includes('FOURCHE') || t.includes('KXT') || t.includes('XTM') ||
         t.includes('XTC') || t.includes('XT4S') || t.includes('SHOGUN') || t.includes('KATANA') ||
@@ -465,12 +471,24 @@ function getProductBrand(title, image) {
     if (t.includes('MOTUL') || t.includes('7100') || t.includes('5100') || t.includes('5000') || t.includes('3000') || t.includes('8100') || t.includes('SCOOTER EXPERT') || t.includes('X-CLEAN') || t.includes('X-CESS') || t.includes('ECO-CLEAN')) {
         return 'motul';
     }
-    if (t.includes('LIQUI MOLY') || t.includes('MOTORBIKE 4T')) {
+    if (t.includes('LIQUI MOLY') || t.includes('MOTORBIKE 4T') || t.includes('ENGINE FLUSH') || t.includes('SHOOTER') || i.includes('liqui-moly')) {
         return 'liquimoly';
     }
     if (t.includes('CASTROL')) {
         return 'castrol';
     }
+    if (t.includes('MICHELIN')) return 'michelin';
+    if (t.includes('DUNLOP')) return 'dunlop';
+    if (t.includes('BRIDGESTONE')) return 'bridgestone';
+    if (t.includes('WANDA')) return 'wanda';
+    if (t.includes('MITAS')) return 'mitas';
+    if (t.includes('TIMSUN')) return 'timsun';
+
+    if (t.includes('HIFLOFILTRO')) return 'hiflofiltro';
+    if (t.includes('K&N') || t.includes('KN')) return 'kn';
+    if (t.includes('MIW')) return 'miw';
+    if (t.includes('MEIWA')) return 'meiwa';
+
     return 'other';
 }
 
@@ -516,8 +534,9 @@ function renderBoutiqueProducts(gridElement, products) {
     });
 
     // Re-run translations on the newly injected elements
-    if (typeof updateContent === 'function') {
-        updateContent();
+    if (typeof changeLanguage === 'function') {
+        const lang = localStorage.getItem('preferredLanguage') || 'fr';
+        changeLanguage(lang);
     }
 
     // Check if we arrived via a deep link right after rendering is done
@@ -539,13 +558,50 @@ function openProductDetail(product) {
     imgEl.src = product.image;
     imgEl.alt = product.title;
 
+    // Translation Map for Product Descriptions
+    const descTranslations = {
+        "Mousse nettoyante multi-surfaces efficace pour l'entretien complet de votre moto. Laisse une finition impeccable.": "Effective multi-surface cleaning foam for complete maintenance of your motorcycle. Leaves a flawless finish.",
+        "Huile de transmission de très haute qualité. Assure des passages de vitesse fluides et protège la boîte de vitesses.": "High-quality transmission oil. Ensures smooth gear shifts and protects the gearbox.",
+        "Fluide hydraulique avancé pour fourches de motos. Garantit un amortissement constant et une excellente maniabilité.": "Advanced hydraulic fluid for motorcycle forks. Guarantees constant damping and excellent handling.",
+        "Produit d'entretien de première qualité, sélectionné spécialement pour votre moto.": "Premium quality maintenance product, specially selected for your motorcycle.",
+        "Huile synthétique premium pour moteurs 2-temps. Excellente lubrification, réduit l'usure et la formation de dépôts.": "Premium synthetic oil for 2-stroke engines. Excellent lubrication, reduces wear and deposit formation.",
+        "Liquide de frein haute performance pour motos. Résiste aux hautes températures pour un freinage puissant et sécurisé.": "High performance brake fluid for motorcycles. Resists high temperatures for powerful and safe braking.",
+        "Lubrifiant haute performance pour chaîne de moto. Offre une protection maximale contre l'usure et la corrosion, même dans des conditions extrêmes.": "High performance lubricant for motorcycle chain. Offers maximum protection against wear and corrosion, even in extreme conditions.",
+        "Huile moteur premium 4-temps. Formule avancée qui prolonge la durée de vie du moteur, réduit les frictions et améliore les performances.": "Premium 4-stroke engine oil. Advanced formula that extends engine life, reduces friction and improves performance.",
+        "Lubrifiant spécialement formulé pour les quads et scooters. Offre une protection et des performances optimales en ville ou en tout-terrain.": "Lubricant specifically formulated for quads and scooters. Offers optimal protection and performance in city or off-road.",
+        "Dégraissant surpuissant pour chaînes de motos. Élimine rapidement les résidus et la saleté incrustée.": "Super powerful degreaser for motorcycle chains. Quickly removes residues and encrusted dirt.",
+        "Brosse de chaîne ergonomique avec poils robustes pour un nettoyage efficace en profondeur.": "Ergonomic chain brush with sturdy bristles for deep effective cleaning.",
+        "Pneu moto haute performance. Assure une excellente adhérence et une durabilité optimale.": "High performance motorcycle tire. Ensures excellent grip and optimal durability.",
+        "Filtre à huile haute performance pour moto. Assure une filtration optimale du moteur.": "High performance motorcycle oil filter. Ensures optimal engine filtration.",
+        "Huile moteur synthétique très haute performance pour motos 4T. Protection exceptionnelle contre l'usure et réduction des frictions.": "Very high performance synthetic engine oil for 4T motorcycles. Exceptional protection against wear and reduced friction.",
+        "Huile moteur semi-synthétique de haute qualité pour motos 4T. Idéale pour un usage quotidien et les longs trajets.": "High-quality semi-synthetic engine oil for 4T motorcycles. Ideal for daily use and long trips.",
+        "Lubrifiant synthétique Premium pour un entretien optimal de la chaîne de votre moto. Résiste à l'eau et limite les projections.": "Premium synthetic lubricant for optimal maintenance of your motorcycle chain. Water-resistant and prevents fling-off.",
+        "Lubrifiant spécial pour filtres à air en mousse. Empêche la pénétration de la saleté, de la poussière et de l'eau.": "Special lubricant for foam air filters. Prevents dirt, dust, and water penetration.",
+        "Liquide de refroidissement organique prêt à l'emploi. Prévient la surchauffe et protège le système de refroidissement contre la corrosion.": "Ready-to-use organic coolant. Prevents overheating and protects the cooling system against corrosion.",
+        "Maintient le moteur parfaitement propre. Excellente protection anti-usure. Idéal pour une utilisation urbaine.": "Keeps the engine perfectly clean. Excellent wear protection. Ideal for urban use.",
+        "Nettoie l'ensemble de l'installation d'injection du moteur. Améliore les performances.": "Cleans the entire engine injection system. Improves performance.",
+        "Huile synthétique premium pour moteurs 2-temps de motos sportives et tout-terrain. Réduit l'émission de fumées.": "Premium synthetic oil for 2-stroke engines of sporty and off-road motorcycles. Reduces smoke emission."
+    };
+
     // Set Description if available
     if (descEl) {
-        descEl.textContent = product.description || "Produit d'entretien de première qualité, sélectionné spécialement pour votre moto.";
+        let text = product.description || "Produit d'entretien de première qualité, sélectionné spécialement pour votre moto.";
+        const lang = localStorage.getItem('preferredLanguage') || 'fr';
+
+        if (lang === 'en' && descTranslations[text]) {
+            text = descTranslations[text];
+        }
+
+        descEl.textContent = text;
     }
 
     // Create WhatsApp link directly inside the detail view
-    const message = encodeURIComponent(`Bonjour, je suis intéressé(e) par votre produit ${product.title}`);
+    const lang = localStorage.getItem('preferredLanguage') || 'fr';
+    const message = encodeURIComponent(
+        lang === 'en'
+            ? `Hello, I am interested in your product ${product.title}`
+            : `Bonjour, je suis intéressé(e) par votre produit ${product.title}`
+    );
     orderBtn.href = `https://wa.me/212696344361?text=${message}`;
 
     // Update URL for deep linking
