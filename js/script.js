@@ -533,4 +533,37 @@ function openProductDetail(product) {
     document.body.style.overflow = "hidden";
 }
 
+// Check URL Hash to open specific product modal on load or navigation
+window.checkHashForProduct = function () {
+    const hash = window.location.hash;
+    if (hash && hash.startsWith('#product-')) {
+        const slug = hash.replace('#product-', '');
 
+        // Ensure products exist before trying to find one
+        if (typeof bardahlProducts !== 'undefined') {
+            const product = bardahlProducts.find(p => {
+                const pSlug = p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                return pSlug === slug;
+            });
+
+            if (product) {
+                openProductDetail(product);
+            }
+        }
+    }
+};
+
+// Listen for browser navigation (Back/Forward buttons)
+window.addEventListener('hashchange', () => {
+    // If the hash is empty, they navigated back to the main page
+    if (!window.location.hash || !window.location.hash.startsWith('#product-')) {
+        const modal = document.getElementById('productDetailModal');
+        if (modal) {
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+    } else {
+        // Otherwise, try to open the product
+        window.checkHashForProduct();
+    }
+});
