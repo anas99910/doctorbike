@@ -375,8 +375,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Boutique Search & Category Logic
     const boutiqueSearchInput = document.getElementById('boutiqueSearch');
-    const categoryBtns = document.querySelectorAll('.category-btn');
+    // Using :not(.brand-btn) to distinguish between category and brand filters
+    const categoryBtns = document.querySelectorAll('.category-btn:not(.brand-btn)');
+    const brandBtns = document.querySelectorAll('.brand-btn');
     let currentCategory = 'all';
+    let currentBrand = 'all';
     let currentSearchTerm = '';
 
     function filterBoutique() {
@@ -384,11 +387,13 @@ document.addEventListener('DOMContentLoaded', () => {
         productCards.forEach(card => {
             const title = card.querySelector('h4').textContent.toLowerCase();
             const category = card.getAttribute('data-category');
+            const brand = card.getAttribute('data-brand'); // new attribute
 
             const matchesSearch = title.includes(currentSearchTerm);
             const matchesCategory = currentCategory === 'all' || category === currentCategory;
+            const matchesBrand = currentBrand === 'all' || brand === currentBrand;
 
-            if (matchesSearch && matchesCategory) {
+            if (matchesSearch && matchesCategory && matchesBrand) {
                 card.style.display = "flex";
             } else {
                 card.style.display = "none";
@@ -414,6 +419,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    if (brandBtns) {
+        brandBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                brandBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentBrand = this.getAttribute('data-filter');
+                filterBoutique();
+            });
+        });
+    }
+
 });
 
 // Helper to determine product category by keywords
@@ -432,6 +448,32 @@ function getProductCategory(title) {
     return 'maintenance';
 }
 
+// Helper to determine product brand by keywords
+function getProductBrand(title, image) {
+    const t = title.toUpperCase();
+    const i = (image || '').toLowerCase();
+
+    if (t.includes('BARDAHL') || i.includes('bardahl.ma') || t.includes('XTC') || t.includes('XTM') || t.includes('XTF')) {
+        return 'bardahl';
+    }
+    if (t.includes('IPONE') || t.includes('KATANA') || t.includes('SHOGUN') || t.includes('SAMOURAÏ') || t.includes('SAMOURAI') || t.includes('R4000') || t.includes('R2000') || t.includes('10.3') || t.includes('10.4') || t.includes('15.5') || t.includes('20.5') || i.includes('ipone')) {
+        return 'ipone';
+    }
+    if (i.includes('shopify.com') || i.includes('accentuate.io') || i.includes('prismic.io/ipone')) {
+        return 'ipone';
+    }
+    if (t.includes('MOTUL') || t.includes('7100') || t.includes('5100') || t.includes('5000') || t.includes('3000') || t.includes('8100') || t.includes('SCOOTER EXPERT') || t.includes('X-CLEAN') || t.includes('X-CESS') || t.includes('ECO-CLEAN')) {
+        return 'motul';
+    }
+    if (t.includes('LIQUI MOLY') || t.includes('MOTORBIKE 4T')) {
+        return 'liquimoly';
+    }
+    if (t.includes('CASTROL')) {
+        return 'castrol';
+    }
+    return 'other';
+}
+
 // Render Dynamic Boutique Grid
 function renderBoutiqueProducts(gridElement, products) {
     gridElement.innerHTML = ''; // Clear loading/existing items
@@ -445,8 +487,9 @@ function renderBoutiqueProducts(gridElement, products) {
         const whatsappUrl = `https://wa.me/212696344361?text=${message}`;
 
         const category = getProductCategory(product.title);
+        const brand = getProductBrand(product.title, product.image);
         const cardHTML = `
-            <div class="service-card" data-category="${category}" data-slug="${slug}" style="display: flex; flex-direction: column; cursor: pointer;">
+            <div class="service-card" data-category="${category}" data-brand="${brand}" data-slug="${slug}" style="display: flex; flex-direction: column; cursor: pointer;">
                 <img src="${product.image}"
                      alt="${product.title}"
                      style="width: 100%; height: 250px; object-fit: contain; border-radius: 8px; margin-bottom: 25px;"

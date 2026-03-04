@@ -35,7 +35,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="assets/google-touch-icon.png" sizes="512x512">
     <link rel="apple-touch-icon" href="assets/google-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css?v=16">
+    <link rel="stylesheet" href="css/style.css?v=17">
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -82,10 +82,20 @@
             <div class="divider mx-auto"></div>
 
             <div class="boutique-category-filters" id="boutique-category-filters" style="margin-top: 30px;">
-                <button class="category-btn active" data-filter="all">Tout</button>
+                <button class="category-btn active" data-filter="all">Tout (Catégorie)</button>
                 <button class="category-btn" data-filter="oil">Huiles Moteur</button>
                 <button class="category-btn" data-filter="chain">Entretien Chaîne</button>
                 <button class="category-btn" data-filter="maintenance">Entretien & Additifs</button>
+            </div>
+
+            <div class="boutique-category-filters boutique-brand-filters" id="boutique-brand-filters"
+                style="margin-top: 15px; margin-bottom: 25px;">
+                <button class="brand-btn category-btn active" data-filter="all">Toutes (Marques)</button>
+                <button class="brand-btn category-btn" data-filter="bardahl">Bardahl</button>
+                <button class="brand-btn category-btn" data-filter="ipone">Ipone</button>
+                <button class="brand-btn category-btn" data-filter="motul">Motul</button>
+                <button class="brand-btn category-btn" data-filter="liquimoly">Liqui Moly</button>
+                <button class="brand-btn category-btn" data-filter="castrol">Castrol</button>
             </div>
 
             <div class="boutique-search-container" style="margin-bottom: 40px;">
@@ -147,8 +157,8 @@
     </div>
 
     <script src="js/products.js"></script>
-    <script src="js/translations.js?v=16"></script>
-    <script src="js/script.js?v=16"></script>
+    <script src="js/translations.js?v=17"></script>
+    <script src="js/script.js?v=17"></script>
 </body>
 
 </html>
