@@ -375,72 +375,230 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Boutique Search & Category Logic
     const boutiqueSearchInput = document.getElementById('boutiqueSearch');
-    // Using :not(.brand-btn) to distinguish between category and brand filters
-    const categoryBtns = document.querySelectorAll('.category-btn:not(.brand-btn)');
-    const brandBtns = document.querySelectorAll('.brand-btn');
+    const categorySelect = document.getElementById('boutique-category-filter');
+    const brandSelect = document.getElementById('boutique-brand-filter');
+    const paginationLimitSelect = document.getElementById('pagination-limit-select');
+    const paginationBar = document.getElementById('boutique-pagination-bar');
+    const paginationInfo = document.getElementById('pagination-info');
+    const paginationControls = document.getElementById('pagination-controls');
+
     let currentCategory = 'all';
     let currentBrand = 'all';
+    let currentLimit = '24'; // default integer or 'all'
     let currentSearchTerm = '';
+    let currentPage = 1;
+
+    function buildPaginationControls(totalCards, limit, activePage) {
+        if (!paginationBar || !paginationControls || !paginationInfo) return;
+
+        if (totalCards <= 0) {
+            paginationBar.style.display = 'none';
+            return;
+        }
+
+        paginationBar.style.display = 'flex';
+
+        // Helper to get translation without re-scanning whole document
+        const getT = (key, defaultText) => {
+            const currentLang = localStorage.getItem('preferredLanguage') || 'fr';
+            return (translations[currentLang] && translations[currentLang][key]) || defaultText;
+        };
+
+        if (limit === Infinity || totalCards <= limit) {
+            paginationInfo.innerHTML = `${getT('showing', 'Showing')} 1 - ${totalCards} ${getT('of', 'of')} ${totalCards}`;
+            paginationControls.innerHTML = '';
+            return;
+        }
+
+        const totalPages = Math.ceil(totalCards / limit);
+        const startItem = ((activePage - 1) * limit) + 1;
+        const endItem = Math.min(activePage * limit, totalCards);
+
+        paginationInfo.innerHTML = `<span>${getT('showing', 'Showing')}</span> ${startItem} - ${endItem} <span>${getT('of', 'of')}</span> ${totalCards}`;
+
+        let btnsHTML = '';
+
+        // Prev btn
+        if (activePage > 1) {
+            btnsHTML += `<button class="page-btn prev-next" data-page="${activePage - 1}"><i class="fas fa-chevron-left"></i></button>`;
+        }
+
+        let startPage, endPage;
+        if (totalPages <= 5) {
+            startPage = 1;
+            endPage = totalPages;
+        } else {
+            if (activePage <= 3) {
+                startPage = 1; endPage = 5;
+            } else if (activePage + 2 >= totalPages) {
+                startPage = totalPages - 4; endPage = totalPages;
+            } else {
+                startPage = activePage - 2; endPage = activePage + 2;
+            }
+        }
+
+        if (startPage > 1) {
+            btnsHTML += `<button class="page-btn" data-page="1">1</button>`;
+            if (startPage > 2) btnsHTML += `<span style="color:var(--text-gray); margin:0 5px;">...</span>`;
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            const activeClass = i === activePage ? 'active' : '';
+            btnsHTML += `<button class="page-btn ${activeClass}" data-page="${i}">${i}</button>`;
+        }
+
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) btnsHTML += `<span style="color:var(--text-gray); margin:0 5px;">...</span>`;
+            btnsHTML += `<button class="page-btn" data-page="${totalPages}">${totalPages}</button>`;
+        }
+
+        // Next btn
+        if (activePage < totalPages) {
+            btnsHTML += `<button class="page-btn prev-next" data-page="${activePage + 1}"><i class="fas fa-chevron-right"></i></button>`;
+        }
+
+        paginationControls.innerHTML = btnsHTML;
+
+        // Attach event listeners explicitly to current control set
+        paginationControls.querySelectorAll('.page-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetPage = parseInt(btn.getAttribute('data-page'), 10);
+                if (isNaN(targetPage)) return;
+
+                // Update the PERSISTENT state
+                currentPage = targetPage;
+                filterBoutique();
+
+                // Scroll up smoothly
+                const gridOffset = document.getElementById('boutique-product-grid').getBoundingClientRect().top + window.scrollY - 180;
+                window.scrollTo({ top: gridOffset, behavior: 'smooth' });
+            });
+        });
+    }
 
     function filterBoutique() {
         const productCards = document.querySelectorAll('#boutique-product-grid .service-card');
-        productCards.forEach(card => {
-            const title = card.querySelector('h4').textContent.toLowerCase();
-            const category = card.getAttribute('data-category');
-            const brand = card.getAttribute('data-brand'); // new attribute
+        const limitStr = currentLimit;
+        const limit = limitStr === 'all' ? Infinity : parseInt(limitStr, 10);
 
-            const matchesSearch = title.includes(currentSearchTerm);
+        let matchingCards = [];
+
+        // 1. First pass: find all cards that match the core filters
+        productCards.forEach(card => {
+            const titleElement = card.querySelector('h4');
+            if (!titleElement) return;
+
+            const title = titleElement.textContent.toLowerCase();
+            const category = card.getAttribute('data-category');
+            const brand = card.getAttribute('data-brand');
+
+            const matchesSearch = currentSearchTerm === '' || title.includes(currentSearchTerm);
             const matchesCategory = currentCategory === 'all' || category === currentCategory;
             const matchesBrand = currentBrand === 'all' || brand === currentBrand;
 
             if (matchesSearch && matchesCategory && matchesBrand) {
+                matchingCards.push(card);
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        // Ensure currentPage doesn't overshoot if we filtered down heavily
+        const totalMatching = matchingCards.length;
+        if (limit !== Infinity) {
+            const maxPage = Math.ceil(totalMatching / limit);
+            if (maxPage > 0 && currentPage > maxPage) {
+                currentPage = maxPage;
+            } else if (maxPage === 0) {
+                currentPage = 1;
+            }
+        } else {
+            currentPage = 1;
+        }
+
+        // 2. Second pass: limit by visible slice (Pagination)
+        // CRITICAL FIX: (0 * Infinity) is NaN in JS. 
+        const startIndex = limit === Infinity ? 0 : (currentPage - 1) * limit;
+        const endIndex = limit === Infinity ? totalMatching : startIndex + limit;
+
+        matchingCards.forEach((card, index) => {
+            if (index >= startIndex && index < endIndex) {
                 card.style.display = "flex";
             } else {
                 card.style.display = "none";
             }
         });
+
+        // 3. Build UI controls
+        buildPaginationControls(totalMatching, limit, currentPage);
     }
 
     if (boutiqueSearchInput) {
-        boutiqueSearchInput.addEventListener('input', function (e) {
+        boutiqueSearchInput.addEventListener('input', (e) => {
             currentSearchTerm = e.target.value.toLowerCase();
+            currentPage = 1; // Reset to page 1 on new search
             filterBoutique();
         });
     }
 
-    if (categoryBtns) {
-        categoryBtns.forEach(btn => {
-            btn.addEventListener('click', function () {
-                categoryBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                currentCategory = this.getAttribute('data-filter');
-                filterBoutique();
-            });
+    if (categorySelect) {
+        categorySelect.addEventListener('change', (e) => {
+            currentCategory = e.target.value;
+            currentPage = 1;
+            filterBoutique();
         });
     }
 
-    if (brandBtns) {
-        brandBtns.forEach(btn => {
-            btn.addEventListener('click', function () {
-                brandBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                currentBrand = this.getAttribute('data-filter');
-                filterBoutique();
-            });
+    if (brandSelect) {
+        brandSelect.addEventListener('change', (e) => {
+            currentBrand = e.target.value;
+            currentPage = 1;
+            filterBoutique();
         });
     }
+
+    if (paginationLimitSelect) {
+        paginationLimitSelect.addEventListener('change', (e) => {
+            currentLimit = e.target.value;
+            currentPage = 1; // Reset to page 1 when changing limit
+            filterBoutique();
+        });
+    }
+
+    // Initial run to ensure items per page (24) is applied right away
+    setTimeout(() => {
+        filterBoutique();
+    }, 100);
 
 });
 
 // Helper to determine product category by keywords
 function getProductCategory(title) {
     const t = title.toUpperCase();
-    if (t.includes('FILTRE') || t.includes('FILTRE A HUILE') || t.includes('HF') || t.includes('KN') || t.includes('HIFLOFILTRO')) {
+
+    // 1. Chains
+    if (t.includes('CHAIN') || t.includes('CHAINE')) {
+        return 'chain';
+    }
+
+    // 2. Air Filters
+    if (t.includes('FILTRE A AIR') || t.includes('HFA') || t.includes('HFF') || t.includes('CFA') || t.includes('JIABIN')) {
+        if (t.includes('HUILE') && !t.includes('FILTRE A HUILE')) return 'maintenance';
+        return 'air_filter';
+    }
+
+    // 3. Oil Filters
+    if (t.includes('FILTRE A HUILE') || t.includes('HF') || t.includes('KN') || t.includes('HIFLOFILTRO')) {
         return 'filtre';
     }
+
+    // 4. Tires
     if (t.includes('PNEU') || t.includes('DUNLOP') || t.includes('MICHELIN') || t.includes('WANDA') || t.includes('MITAS') || t.includes('TIMSUN') || t.includes('BRIDGESTONE') || t.includes('BUGGY') || t.includes('P3051')) {
         return 'pneu';
     }
+
+    // 5. Engine Oils & Fluids
     if (t.includes('10W') || t.includes('5W') || t.includes('15W') || t.includes('20W') || t.includes('0W') ||
         t.includes('GEAR BOX') || t.includes('FOURCHE') || t.includes('KXT') || t.includes('XTM') ||
         t.includes('XTC') || t.includes('XT4S') || t.includes('SHOGUN') || t.includes('KATANA') ||
@@ -448,9 +606,7 @@ function getProductCategory(title) {
         t.includes('10.3') || t.includes('10.4') || t.includes('15.5') || t.includes('20.5')) {
         return 'oil';
     }
-    if (t.includes('CHAIN') || t.includes('CHAINE')) {
-        return 'chain';
-    }
+
     return 'maintenance';
 }
 
@@ -484,10 +640,12 @@ function getProductBrand(title, image) {
     if (t.includes('MITAS')) return 'mitas';
     if (t.includes('TIMSUN')) return 'timsun';
 
-    if (t.includes('HIFLOFILTRO')) return 'hiflofiltro';
+    if (t.includes('HIFLOFILTRO') || t.includes('HIFLOFITRO')) return 'hiflofiltro';
     if (t.includes('K&N') || t.includes('KN')) return 'kn';
-    if (t.includes('MIW')) return 'miw';
-    if (t.includes('MEIWA')) return 'meiwa';
+    if (t.includes('MIW') || t.includes('MEIWA')) return 'miw';
+    if (t.includes('EVEREST')) return 'other';
+    if (t.includes('JIABIN')) return 'other';
+    if (t.includes('HARLEY DAVIDSON')) return 'other';
 
     return 'other';
 }
