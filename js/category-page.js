@@ -35,6 +35,63 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Render all category products into the grid ---
     renderBoutiqueProducts(productGrid, pageProducts);
 
+    // --- Inject JSON-LD Product Schema for SEO ---
+    function injectProductSchema() {
+        const pageUrl = window.location.href;
+        const pageTitle = document.querySelector('h1')?.textContent?.trim() || document.title;
+        const pageDesc = document.querySelector('meta[name="description"]')?.content || '';
+
+        const schemaProducts = pageProducts.slice(0, 50).map((p, i) => ({
+            '@type': 'ListItem',
+            'position': i + 1,
+            'item': {
+                '@type': 'Product',
+                'name': p.title,
+                'image': p.image || '',
+                'description': p.description || '',
+                'brand': {
+                    '@type': 'Brand',
+                    'name': p.brand ? p.brand.charAt(0).toUpperCase() + p.brand.slice(1) : 'Doctor Biker'
+                },
+                'offers': {
+                    '@type': 'Offer',
+                    'availability': 'https://schema.org/InStock',
+                    'priceCurrency': 'MAD',
+                    'seller': {
+                        '@type': 'LocalBusiness',
+                        'name': 'Doctor Biker Garage',
+                        'address': {
+                            '@type': 'PostalAddress',
+                            'addressLocality': 'Casablanca',
+                            'addressCountry': 'MA'
+                        }
+                    }
+                }
+            }
+        }));
+
+        const schema = {
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            'name': pageTitle,
+            'description': pageDesc,
+            'url': pageUrl,
+            'numberOfItems': pageProducts.length,
+            'itemListElement': schemaProducts
+        };
+
+        const existing = document.getElementById('product-schema-ld');
+        if (existing) existing.remove();
+
+        const scriptTag = document.createElement('script');
+        scriptTag.id = 'product-schema-ld';
+        scriptTag.type = 'application/ld+json';
+        scriptTag.textContent = JSON.stringify(schema, null, 2);
+        document.head.appendChild(scriptTag);
+    }
+
+    injectProductSchema();
+
     // --- Filter & Paginate ---
     function filterAndPaginate() {
         const cards = Array.from(productGrid.querySelectorAll('.service-card'));
@@ -149,15 +206,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Mobile Nav ---
+    // --- Mobile Nav (with overlay) ---
     const mobileMenuBtn = document.getElementById('mobile-menu');
     const navMenu = document.querySelector('.nav-menu');
+    const navOverlay = document.createElement('div');
+    navOverlay.className = 'nav-overlay';
+    document.body.appendChild(navOverlay);
+    function closeMobileMenu() {
+        mobileMenuBtn?.classList.remove('active');
+        navMenu?.classList.remove('active');
+        navOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
     if (mobileMenuBtn) {
         mobileMenuBtn.addEventListener('click', () => {
-            mobileMenuBtn.classList.toggle('active');
-            navMenu.classList.toggle('active');
+            const isOpen = navMenu.classList.contains('active');
+            if (isOpen) { closeMobileMenu(); }
+            else {
+                mobileMenuBtn.classList.add('active');
+                navMenu.classList.add('active');
+                navOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
         });
     }
+    navOverlay.addEventListener('click', closeMobileMenu);
+    document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', closeMobileMenu));
 
     // --- Initial filter pass ---
     setTimeout(filterAndPaginate, 100);

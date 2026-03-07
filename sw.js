@@ -1,4 +1,4 @@
-const CACHE_NAME = 'doctor-biker-v28';
+const CACHE_NAME = 'doctor-biker-v30';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -35,20 +35,32 @@ self.addEventListener('install', event => {
 
 // Fetch Event
 self.addEventListener('fetch', event => {
+    const url = event.request.url;
+
+    // VERSIONED assets (script.js?v=30, style.css?v=30, etc.)
+    // → Always go to network so code updates are immediate
+    if (url.includes('?v=')) {
+        event.respondWith(
+            fetch(event.request).catch(() => caches.match(event.request))
+        );
+        return;
+    }
+
+    // HTML navigation requests → network-first so users always get fresh pages
+    if (event.request.mode === 'navigate') {
+        event.respondWith(
+            fetch(event.request).catch(() =>
+                caches.match(event.request) ||
+                caches.match('./index.html')
+            )
+        );
+        return;
+    }
+
+    // Everything else (images, fonts, icons) → cache-first
     event.respondWith(
-        caches.match(event.request, { ignoreSearch: true })
-            .then(response => {
-                if (response) {
-                    return response;
-                }
-                return fetch(event.request).catch(error => {
-                    // Fallback for navigation requests
-                    if (event.request.mode === 'navigate') {
-                        return caches.match('./index.html') || caches.match('./');
-                    }
-                    throw error;
-                });
-            })
+        caches.match(event.request)
+            .then(response => response || fetch(event.request))
     );
 });
 

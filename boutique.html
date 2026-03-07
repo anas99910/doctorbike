@@ -55,19 +55,43 @@
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="apple-touch-icon" href="assets/logo.png">
-    <link rel="stylesheet" href="css/style.css?v=25">
+    <link rel="stylesheet" href="css/style.css?v=30">
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- JSON-LD Structured Data: Site Identity -->
+    <!-- JSON-LD: Site Identity + Local Business -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Doctor Biker Garage",
-      "alternateName": ["Doctor Biker", "DoctorBike"],
-      "url": "https://doctorbike.vercel.app/"
-    }
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Doctor Biker Garage",
+        "alternateName": ["Doctor Biker", "DoctorBike"],
+        "url": "https://doctorbike.vercel.app/"
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "AutoPartsStore",
+        "name": "Doctor Biker Garage",
+        "url": "https://doctorbike.vercel.app/boutique.html",
+        "description": "Boutique moto à Casablanca : huiles moteur, pneus, filtres, entretien chaîne et additifs. Marques Bardahl, Ipone, Motul, Michelin, Hiflofiltro.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Casablanca",
+          "addressCountry": "MA"
+        },
+        "telephone": "+212696344361",
+        "priceRange": "MAD",
+        "currenciesAccepted": "MAD",
+        "paymentAccepted": "Cash, WhatsApp Order",
+        "openingHours": "Mo-Sa 09:00-19:00",
+        "hasMap": "https://www.google.com/maps?q=Doctor+Biker+Garage+Casablanca",
+        "sameAs": [
+          "https://www.instagram.com/thedoctorbiker1/",
+          "https://www.tiktok.com/@thedoctorbiker1"
+        ]
+      }
+    ]
     </script>
 </head>
 
@@ -220,8 +244,31 @@
     </div>
 
     <script src="js/products.js"></script>
-    <script src="js/translations.js?v=25"></script>
-    <script src="js/script.js?v=25"></script>
+    <script>
+    (function() {
+        var allProds = [].concat(
+            typeof bardahlProducts !== 'undefined' ? bardahlProducts : [],
+            typeof iponeProducts !== 'undefined' ? iponeProducts : []
+        );
+        if (!allProds.length) return;
+        var items = allProds.slice(0, 50).map(function(p, i) {
+            return { '@type': 'ListItem', 'position': i + 1, 'item': {
+                '@type': 'Product', 'name': p.title, 'image': p.image || '', 'description': p.description || '',
+                'brand': { '@type': 'Brand', 'name': p.brand ? (p.brand.charAt(0).toUpperCase() + p.brand.slice(1)) : 'Doctor Biker' },
+                'offers': { '@type': 'Offer', 'availability': 'https://schema.org/InStock', 'priceCurrency': 'MAD',
+                    'seller': { '@type': 'LocalBusiness', 'name': 'Doctor Biker Garage' } }
+            }};
+        });
+        var tag = document.createElement('script');
+        tag.type = 'application/ld+json';
+        tag.textContent = JSON.stringify({ '@context': 'https://schema.org', '@type': 'ItemList',
+            'name': 'Boutique Moto Casablanca — Doctor Biker Garage',
+            'url': 'https://doctorbike.vercel.app/boutique.html',
+            'numberOfItems': allProds.length, 'itemListElement': items });
+        document.head.appendChild(tag);
+    })();
+    </script>
+    <script src="js/translations.js?v=30"></script>
+    <script src="js/script.js?v=30"></script>
 </body>
-
 </html>

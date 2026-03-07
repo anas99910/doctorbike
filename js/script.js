@@ -673,8 +673,15 @@ function renderBoutiqueProducts(gridElement, products) {
     gridElement.innerHTML = ''; // Clear loading/existing items
 
     products.forEach(product => {
-        // Construct a safe URL slug for deep linking
-        const slug = product.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        // Slugify matching the generator script exactly
+        function slugify(str) {
+            return str.toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '')
+                .substring(0, 80);
+        }
+        const slug = slugify(product.title);
 
         // Construct the WhatsApp message URL
         const message = encodeURIComponent(`Bonjour, je suis intéressé(e) par votre produit ${product.title}`);
@@ -702,10 +709,15 @@ function renderBoutiqueProducts(gridElement, products) {
         gridElement.insertAdjacentHTML('beforeend', cardHTML);
     });
 
-    // Add click event listeners to the new cards to open the detail modal
-    document.querySelectorAll('#boutique-product-grid .service-card').forEach((card, index) => {
-        card.addEventListener('click', () => {
-            openProductDetail(products[index]);
+    // Click on card → navigate to individual product page
+    const isInSubdir = window.location.pathname.includes('/products/');
+    const pathPrefix = isInSubdir ? '' : 'products/';
+    document.querySelectorAll('#boutique-product-grid .service-card').forEach((card) => {
+        card.addEventListener('click', (e) => {
+            // Don't navigate if the WhatsApp button itself was clicked
+            if (e.target.closest('a')) return;
+            const slug = card.getAttribute('data-slug');
+            if (slug) window.location.href = `${pathPrefix}${slug}.html`;
         });
     });
 
