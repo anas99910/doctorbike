@@ -7,7 +7,7 @@ const translations = {
         nav_reviews: "Avis",
         nav_boutique: "Boutique",
         coming_soon_msg: "Bientôt disponible !",
-        boutique_title: "Boutique",
+        boutique_title: "Boutique Moto Casablanca",
         btn_order: "Commander",
         nav_contact: "Contact",
 
@@ -78,7 +78,7 @@ const translations = {
         nav_reviews: "Reviews",
         nav_boutique: "Shop",
         coming_soon_msg: "Coming soon!",
-        boutique_title: "Shop",
+        boutique_title: "Casablanca Moto Shop",
         btn_order: "Order Now",
         nav_contact: "Contact",
 

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Additifs & Entretien Moto Casablanca - Liqui Moly, Bardahl | Doctor Biker Garage</title>
+    <meta name="application-name" content="Doctor Biker Garage">
+    <meta name="apple-mobile-web-app-title" content="Doctor Biker Garage">
+    <meta property="og:site_name" content="Doctor Biker Garage">
+    <meta name="description"
+        content="Additifs et produits d'entretien moto à Casablanca : Liqui Moly, Bardahl. Nettoyants injecteurs, carburant et moteur. Doctor Biker Garage.">
+    <meta name="keywords"
+        content="Additif moto Casablanca, Liqui Moly Maroc, Nettoyant injecteur moto, Entretien Bardahl, Doctor Biker">
+    <meta name="author" content="Doctor Biker Garage">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://doctorbike.vercel.app/additifs-entretien.html">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://doctorbike.vercel.app/additifs-entretien.html">
+    <meta property="og:title" content="Additifs & Entretien Moto Casablanca | Doctor Biker">
+    <meta property="og:description"
+        content="Additifs et produits entretien Liqui Moly, Bardahl à Casablanca. Doctor Biker Garage.">
+    <meta property="og:image" content="https://doctorbike.vercel.app/assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <meta name="theme-color" content="#D50000">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="apple-touch-icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css?v=25">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>window.PAGE_CATEGORY = 'maintenance';</script>
+</head>
+
+<body>
+    <nav class="navbar" style="background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(10px);">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="Doctor Biker Garage Logo" width="50" height="50">
+                <span>Doctor Biker</span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu"><span class="bar"></span><span class="bar"></span><span
+                    class="bar"></span></div>
+            <ul class="nav-menu">
+                <li><a href="index.html#home" class="nav-link" data-i18n="nav_home">Accueil</a></li>
+                <li><a href="index.html#about" class="nav-link" data-i18n="nav_about">À Propos</a></li>
+                <li><a href="index.html#services" class="nav-link" data-i18n="nav_services">Services</a></li>
+                <li><a href="index.html#gallery" class="nav-link" data-i18n="nav_gallery">Galerie</a></li>
+                <li><a href="boutique.html" class="nav-link active" data-i18n="nav_boutique">Boutique</a></li>
+                <li><a href="index.html#reviews" class="nav-link" data-i18n="nav_reviews">Avis</a></li>
+                <li><a href="index.html#contact" class="nav-link btn-contact" data-i18n="nav_contact">Contact</a></li>
+                <li class="lang-switch"><span class="lang-btn active" onclick="changeLanguage('fr')">FR</span><span class="divider">|</span><span class="lang-btn" onclick="changeLanguage('en')">EN</span></li>
+            </ul>
+        </div>
+    </nav>
+    <div style="padding: 110px 20px 0; max-width: 1200px; margin: 0 auto;">
+        <nav aria-label="breadcrumb" style="font-size: 0.85rem; color: var(--text-gray);">
+            <a href="index.html" style="color: var(--accent-red);">Accueil</a> <span style="margin: 0 8px;">/</span>
+            <a href="boutique.html" style="color: var(--accent-red);">Boutique</a> <span style="margin: 0 8px;">/</span>
+            <span>Additifs & Entretien</span>
+        </nav>
+    </div>
+    <section id="boutique-page" class="section bg-black" style="padding-top: 30px; min-height: 80vh;">
+        <div class="container text-center">
+            <h1 class="section-title" style="margin-top:20px;">Additifs & Entretien Moto — Casablanca</h1>
+            <p style="color: var(--text-gray); margin-bottom: 10px; font-size: 1rem;">Liqui Moly · Bardahl · Nettoyants
+                moteurs, injecteurs & plus</p>
+            <div class="divider mx-auto"></div>
+            <!-- Filters: Category Nav + Brand (one row) -->
+            <div class="boutique-filters-container"
+                style="margin-top: 25px; margin-bottom: 25px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                <div class="custom-select-wrapper">
+                    <select class="custom-select" onchange="if(this.value) window.location.href=this.value"
+                        style="cursor:pointer;">
+                        <option value="" disabled selected hidden> Autre catégorie...</option><option value="boutique.html"> TOUT (CATÉGORIES)</option>
+                        <option value="huiles-moto.html"> Huiles Moteur</option>
+                        <option value="pneus-moto.html"> Pneus Moto</option>
+                        <option value="filtres-huile.html"> Filtres à Huile</option>
+                        <option value="filtres-air.html"> Filtres à Air</option>
+                        <option value="entretien-chaine.html"> Entretien Chaîne</option>
+                    </select>
+                </div>
+                <div class="custom-select-wrapper">
+                    <select id="boutique-brand-filter" class="custom-select brand-select">
+                        <option value="all">Toutes (Marques)</option>
+                        <option value="liquimoly">Liqui Moly</option>
+                        <option value="bardahl">Bardahl</option>
+                        <option value="ipone">Ipone</option>
+                    </select>
+                </div>
+            </div>
+            <div class="boutique-search-container" style="margin-bottom: 40px;">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="boutiqueSearch" class="boutique-search-input"
+                    placeholder="Rechercher un additif...">
+            </div>
+            <div class="services-grid" id="boutique-product-grid"></div>
+            <div class="pagination-bar" id="boutique-pagination-bar" style="display: none;">
+                <div class="pagination-info" id="pagination-info"></div>
+                <div class="pagination-controls" id="pagination-controls"></div>
+                <div class="pagination-limit">
+                    <label for="pagination-limit-select">Grille:</label>
+                    <select id="pagination-limit-select" class="custom-select limit-select-small">
+                        <option value="24">24</option>
+                        <option value="36">36</option>
+                        <option value="48">48</option>
+                        <option value="all">Tout</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="productDetailModal" class="modal">
+        <div class="modal-content product-detail-modal">
+            <span class="close-detail-modal">&times;</span>
+            <div class="product-detail-layout">
+                <div class="product-detail-image-container"><img id="detailImage" src="" alt="Product"
+                        class="product-detail-img"></div>
+                <div class="product-detail-info">
+                    <h2 id="detailTitle" class="detail-title"></h2>
+                    <div class="divider"></div>
+                    <p id="detailDesc" class="detail-specific-description"></p>
+                    <p class="detail-description">Disponible en boutique. Contactez-nous pour réserver.</p>
+                    <a id="detailOrderBtn" href="#" target="_blank" class="btn-clay detail-order-btn">
+                        <div class="clay-icon-wrapper"><i class="fab fa-whatsapp"></i></div>
+                        <span class="clay-text">Commander</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer style="margin-top: auto;">
+        <div class="container footer-content text-center">
+            <img src="assets/logo.png" alt="Doctor Biker Garage" class="footer-logo">
+            <h3>Réanimer les Moteurs, Restaurer les Âmes.</h3>
+            <div class="footer-socials">
+                <a href="https://www.instagram.com/thedoctorbiker1/" target="_blank" class="social-icon"><i
+                        class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@thedoctorbiker1" target="_blank" class="social-icon"><i
+                        class="fab fa-tiktok"></i></a>
+            </div>
+            <p class="copyright">&copy; 2026 Doctor Biker Garage. Tous droits réservés.</p>
+        </div>
+    </footer>
+    <script src="js/products.js"></script>
+    <script src="js/translations.js?v=25"></script>
+    <script src="js/script.js?v=25"></script>
+    <script src="js/category-page.js?v=2"></script>
+</body>
+
+</html>

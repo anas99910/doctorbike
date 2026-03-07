@@ -12,7 +12,7 @@
     <meta property="og:site_name" content="Doctor Biker Garage">
 
     <meta name="description"
-        content="Doctor Biker Garage à Casablanca. Réparation, diagnostic, personnalisation et accessoires de moto professionnels. Honda, Yamaha, BMW, Ducati et plus.">
+        content="Doctor Biker Garage à Casablanca. Expertise en réparation moto, diagnostic électronique et customisation. Atelier mécanicien toutes marques.">
     <meta name="google-site-verification" content="nNSa97B0_FtXwB3585ridbfg6h_wUFmJqgdHug_Ji1E" />
     <meta name="keywords"
         content="Doctor Biker, Garage Moto Casablanca, Réparation Moto, Custom Moto Maroc, Diagnostic Moto, Honda, Yamaha, BMW, Ducati, KTM, Mechanic Casablanca">
@@ -64,7 +64,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="apple-touch-icon" href="assets/logo.png">
-    <link rel="stylesheet" href="css/style.css?v=23">
+    <link rel="stylesheet" href="css/style.css?v=25">
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -87,17 +87,24 @@
         {
           "@context": "https://schema.org",
           "@type": "MotorcycleRepair",
-          "name": "Doctor Biker",
-          "image": "https://doctorbike.vercel.app/assets/google-touch-icon.png",
+          "name": "Doctor Biker Garage Casablanca",
+          "description": "Atelier spécialisé en réparation moto, diagnostic électronique et customisation à Casablanca.",
+          "image": "https://doctorbike.vercel.app/assets/logo.png",
           "@id": "https://doctorbike.vercel.app",
           "url": "https://doctorbike.vercel.app",
           "telephone": "+212696344361",
           "priceRange": "$$",
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "2355, App6",
+            "streetAddress": "Maanu, Gauthier",
             "addressLocality": "Casablanca",
+            "postalCode": "20000",
             "addressCountry": "MA"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "33.5892",
+            "longitude": "-7.6070"
           },
           "openingHoursSpecification": {
             "@type": "OpeningHoursSpecification",
@@ -114,7 +121,11 @@
           },
           "sameAs": [
              "https://www.instagram.com/doctorbiker_garage"
-          ]
+          ],
+          "areaServed": {
+            "@type": "City",
+            "name": "Casablanca"
+          }
         }
     ]
     </script>
@@ -126,7 +137,8 @@
     <nav class="navbar">
         <div class="container nav-container">
             <a href="#" class="logo">
-                <img src="assets/logo.png" alt="Doctor Biker Garage Logo" width="50" height="50">
+                <img src="assets/logo.png" alt="Atelier Moto Doctor Biker Casablanca - Expertise et Passion" width="50"
+                    height="50">
                 <span>Doctor Biker</span>
             </a>
             <div class="menu-toggle" id="mobile-menu">
@@ -210,9 +222,23 @@
                 </div>
             </div>
 
-            <button class="btn btn-primary" style="margin-top: 30px;" onclick="window.location.href='boutique.html'"
-                data-i18n="shop_slider_btn">Visiter la
-                Boutique</button>
+            <div
+                style="display:flex; align-items:center; justify-content:center; gap:16px; margin-top:30px; flex-wrap:wrap;">
+                <div class="custom-select-wrapper" style="min-width: 240px;">
+                    <select class="custom-select" onchange="if(this.value) window.location.href=this.value"
+                        style="cursor:pointer;">
+                        <option value="boutique.html">🏍️ Parcourir par catégorie...</option>
+                        <option value="huiles-moto.html">🛢️ Huiles Moteur</option>
+                        <option value="pneus-moto.html">🔵 Pneus Moto</option>
+                        <option value="filtres-huile.html">🔩 Filtres à Huile</option>
+                        <option value="filtres-air.html">💨 Filtres à Air</option>
+                        <option value="entretien-chaine.html">⛓️ Entretien Chaîne</option>
+                        <option value="additifs-entretien.html">🧪 Additifs & Entretien</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" onclick="window.location.href='boutique.html'"
+                    data-i18n="shop_slider_btn">Visiter la Boutique</button>
+            </div>
         </div>
     </section>
 
@@ -363,7 +389,8 @@
                 <div class="wizard-step" id="step-3">
                     <div class="result-card">
                         <div class="result-icon">
-                            <img src="assets/diagnostic-mascot.png" alt="Diagnostic Mascot">
+                            <img src="assets/diagnostic-mascot.png"
+                                alt="Diagnostic électronique moto haute précision Casablanca">
                         </div>
                         <h3 data-i18n="wizard_result_title">Diagnostic Préliminaire</h3>
                         <p id="wizard-result-text" class="result-text">...</p>
@@ -690,8 +717,8 @@
     </div>
 
     <script src="js/products.js"></script>
-    <script src="js/translations.js?v=22"></script>
-    <script src="js/script.js?v=22"></script>
+    <script src="js/translations.js?v=25"></script>
+    <script src="js/script.js?v=25"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {

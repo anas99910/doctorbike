@@ -3,18 +3,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileMenuBtn = document.getElementById('mobile-menu');
     const navMenu = document.querySelector('.nav-menu');
 
+    // Create overlay dynamically
+    const overlay = document.createElement('div');
+    overlay.className = 'nav-overlay';
+    document.body.appendChild(overlay);
+
+    function openMenu() {
+        mobileMenuBtn.classList.add('active');
+        navMenu.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+        mobileMenuBtn.classList.remove('active');
+        navMenu.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
     if (mobileMenuBtn) {
         mobileMenuBtn.addEventListener('click', () => {
-            mobileMenuBtn.classList.toggle('active');
-            navMenu.classList.toggle('active');
+            navMenu.classList.contains('active') ? closeMenu() : openMenu();
         });
     }
 
+    // Close on overlay tap
+    overlay.addEventListener('click', closeMenu);
+
     // Close mobile menu when clicking a link
-    document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
-        mobileMenuBtn.classList.remove('active');
-        navMenu.classList.remove('active');
-    }));
+    document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', closeMenu));
 
     // Initialize the Shop Slider Teaser
     if (typeof initShopSlider === 'function') {
