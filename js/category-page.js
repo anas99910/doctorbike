@@ -20,6 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
         ...(typeof iponeProducts !== 'undefined' ? iponeProducts : []),
     ];
 
+    // Initialize Smart Search Autocomplete (global function from script.js)
+    if (typeof initSmartSearch === 'function') {
+        initSmartSearch();
+    }
+
     // --- Pre-filter to this page's category ---
     const pageCategory = window.PAGE_CATEGORY || 'all';
     const pageProducts = pageCategory === 'all'

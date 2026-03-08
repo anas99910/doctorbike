@@ -2284,9 +2284,101 @@ footer h3 {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 1040;
 }
 
 .nav-overlay.active {
     display: block;
-}
+}
+
+/* ---------- SEARCH AUTOCOMPLETE ---------- */
+.boutique-search-container {
+    position: relative; /* Anchor for results */
+}
+
+.search-autocomplete-results {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    z-index: 2000;
+    max-height: 400px;
+    overflow-y: auto;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+    display: none; /* Hidden by default */
+}
+
+.search-autocomplete-results.active {
+    display: block;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background: rgba(213, 0, 0, 0.1);
+}
+
+.search-result-img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    background: #000;
+    padding: 2px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.search-result-info {
+    flex: 1;
+    text-align: left;
+}
+
+.search-result-title {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    color: #fff;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.search-result-meta {
+    font-size: 0.75rem;
+    color: var(--text-gray);
+    display: flex;
+    gap: 10px;
+}
+
+.search-no-results {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+/* Custom Scrollbar for results */
+.search-autocomplete-results::-webkit-scrollbar {
+    width: 6px;
+}
+.search-autocomplete-results::-webkit-scrollbar-track {
+    background: transparent;
+}
+.search-autocomplete-results::-webkit-scrollbar-thumb {
+    background: var(--primary-red);
+    border-radius: 10px;
+}

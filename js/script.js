@@ -39,6 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
         initShopSlider();
     }
 
+    // Initialize Smart Search Autocomplete
+    if (typeof initSmartSearch === 'function') {
+        initSmartSearch();
+    }
+
     // Smart WhatsApp Booking
     window.bookService = function (serviceType) {
         const phoneNumber = "212696344361";
@@ -864,4 +869,103 @@ window.initShopSlider = function () {
 
     // To make infinite scroll seamless, duplicate the content once
     track.innerHTML = htmlContent + htmlContent;
+};
+
+// ─── Smart Search Autocomplete Implementation ─────────────────────────────
+window.initSmartSearch = function() {
+    const searchInput = document.getElementById('boutiqueSearch');
+    const searchContainer = document.querySelector('.boutique-search-container');
+    if (!searchInput || !searchContainer) return;
+
+    // Create results container
+    const resultsDiv = document.createElement('div');
+    resultsDiv.className = 'search-autocomplete-results';
+    searchContainer.appendChild(resultsDiv);
+
+    // Slugify matching the generator script
+    function slugify(str) {
+        return str.toLowerCase()
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '')
+            .substring(0, 80);
+    }
+
+    // Get all products from all known arrays
+    const catalog = [
+        ...(typeof bardahlProducts !== 'undefined' ? bardahlProducts : []),
+        ...(typeof iponeProducts !== 'undefined' ? iponeProducts : [])
+    ];
+
+    let debounceTimer;
+    searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        const query = e.target.value.trim().toLowerCase();
+
+        if (query.length < 2) {
+            resultsDiv.classList.remove('active');
+            return;
+        }
+
+        debounceTimer = setTimeout(() => {
+            const matches = catalog.filter(p => {
+                const title = (p.title || '').toLowerCase();
+                const brand = getProductBrand(p.title, p.image).toLowerCase();
+                return title.includes(query) || brand.includes(query);
+            }).slice(0, 10); // Show top 10 matches
+
+            renderResults(matches, query);
+        }, 150);
+    });
+
+    function renderResults(matches, query) {
+        if (matches.length === 0) {
+            resultsDiv.innerHTML = `<div class="search-no-results">Aucun produit trouvé pour "${query}"</div>`;
+            resultsDiv.classList.add('active');
+            return;
+        }
+
+        let html = '';
+        matches.forEach(p => {
+            const slug = slugify(p.title);
+            const brand = getProductBrand(p.title, p.image);
+            const categoryMeta = getProductCategory(p.title);
+            
+            // Auto-detect if we are in products/ folder or main level
+            const isInSubdir = window.location.pathname.includes('/products/');
+            const pathPrefix = isInSubdir ? '' : 'products/';
+
+            html += `
+                <div class="search-result-item" onclick="window.location.href='${pathPrefix}${slug}.html'">
+                    <img src="${p.image}" class="search-result-img" alt="${p.title}">
+                    <div class="search-result-info">
+                        <span class="search-result-title">${p.title}</span>
+                        <div class="search-result-meta">
+                            <span>${brand}</span>
+                            <span>•</span>
+                            <span>${categoryMeta.toUpperCase()}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        resultsDiv.innerHTML = html;
+        resultsDiv.classList.add('active');
+    }
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!searchContainer.contains(e.target)) {
+            resultsDiv.classList.remove('active');
+        }
+    });
+
+    // Close on Escape key
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            resultsDiv.classList.remove('active');
+            searchInput.blur();
+        }
+    });
 };
