@@ -1942,6 +1942,7 @@ footer h3 {
     font-family: var(--font-heading);
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     /* Truncate to 2 lines */
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -2284,10 +2285,16 @@ footer h3 {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
+    z-index: 950; /* Below navbar (1000) */
 }
 
 .nav-overlay.active {
     display: block;
+}
+
+/* Ensure navbar is above everything else except search dropdown */
+.navbar {
+    z-index: 1000;
 }
 
 /* ---------- SEARCH AUTOCOMPLETE ---------- */

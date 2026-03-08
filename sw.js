@@ -1,4 +1,4 @@
-const CACHE_NAME = 'doctor-biker-v31';
+const CACHE_NAME = 'db-cache-v32';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',

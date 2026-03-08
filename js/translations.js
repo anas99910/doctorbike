@@ -172,6 +172,17 @@ function changeLanguage(lang) {
 
     // Save preference
     localStorage.setItem('preferredLanguage', lang);
+
+    // Close mobile menu if open
+    const navMenu = document.querySelector('.nav-menu');
+    const mobileMenuBtn = document.getElementById('mobile-menu');
+    const overlay = document.querySelector('.nav-overlay');
+    if (navMenu && navMenu.classList.contains('active')) {
+        navMenu.classList.remove('active');
+        if (mobileMenuBtn) mobileMenuBtn.classList.remove('active');
+        if (overlay) overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
 }
 
 // Initialize
