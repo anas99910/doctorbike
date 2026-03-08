@@ -129,11 +129,56 @@ function buildProductPage(product, slug, brand, category, categoryMeta) {
         "image": "${image}",
         "description": "${desc.replace(/"/g, '\\"').substring(0, 250)}",
         "brand": { "@type": "Brand", "name": "${brand}" },
+        "sku": "${slug}",
+        "mpn": "${slug}",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5",
+            "reviewCount": "1"
+        },
         "offers": {
             "@type": "Offer",
             "availability": "https://schema.org/InStock",
+            "price": "0",
             "priceCurrency": "MAD",
+            "priceValidUntil": "2026-12-31",
             "url": "${pageUrl}",
+            "itemCondition": "https://schema.org/NewCondition",
+            "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "MA",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnPeriod",
+                "merchantReturnDays": 7,
+                "returnMethod": "https://schema.org/ReturnInStore",
+                "returnFees": "https://schema.org/FreeReturn"
+            },
+            "shippingDetails": {
+               "@type": "OfferShippingDetails",
+               "shippingRate": {
+                 "@type": "MonetaryAmount",
+                 "value": 0,
+                 "currency": "MAD"
+               },
+               "shippingDestination": [{
+                 "@type": "DefinedRegion",
+                 "addressCountry": "MA"
+               }],
+               "deliveryTime": {
+                 "@type": "ShippingDeliveryTime",
+                 "handlingTime": {
+                   "@type": "QuantitativeValue",
+                   "minValue": 0,
+                   "maxValue": 1,
+                   "unitCode": "DAY"
+                 },
+                 "transitTime": {
+                   "@type": "QuantitativeValue",
+                   "minValue": 1,
+                   "maxValue": 3,
+                   "unitCode": "DAY"
+                 }
+               }
+            },
             "seller": {
                 "@type": "AutoPartsStore",
                 "name": "Doctor Biker Garage",

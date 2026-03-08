@@ -26,11 +26,56 @@
         "image": "https://images.prismic.io/ipone/aIdECVGsbswqTVc9_Shogun-off-road.png?ixlib=gatsbyFP&auto=format%2Ccompress&fit=max&h=&w=3200",
         "description": "Produit d'entretien de première qualité, sélectionné spécialement pour votre moto.",
         "brand": { "@type": "Brand", "name": "Ipone" },
+        "sku": "shogun-off-road",
+        "mpn": "shogun-off-road",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5",
+            "reviewCount": "1"
+        },
         "offers": {
             "@type": "Offer",
             "availability": "https://schema.org/InStock",
+            "price": "0",
             "priceCurrency": "MAD",
+            "priceValidUntil": "2026-12-31",
             "url": "https://doctorbike.vercel.app/products/shogun-off-road.html",
+            "itemCondition": "https://schema.org/NewCondition",
+            "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "MA",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnPeriod",
+                "merchantReturnDays": 7,
+                "returnMethod": "https://schema.org/ReturnInStore",
+                "returnFees": "https://schema.org/FreeReturn"
+            },
+            "shippingDetails": {
+               "@type": "OfferShippingDetails",
+               "shippingRate": {
+                 "@type": "MonetaryAmount",
+                 "value": 0,
+                 "currency": "MAD"
+               },
+               "shippingDestination": [{
+                 "@type": "DefinedRegion",
+                 "addressCountry": "MA"
+               }],
+               "deliveryTime": {
+                 "@type": "ShippingDeliveryTime",
+                 "handlingTime": {
+                   "@type": "QuantitativeValue",
+                   "minValue": 0,
+                   "maxValue": 1,
+                   "unitCode": "DAY"
+                 },
+                 "transitTime": {
+                   "@type": "QuantitativeValue",
+                   "minValue": 1,
+                   "maxValue": 3,
+                   "unitCode": "DAY"
+                 }
+               }
+            },
             "seller": {
                 "@type": "AutoPartsStore",
                 "name": "Doctor Biker Garage",

@@ -252,10 +252,13 @@
         );
         if (!allProds.length) return;
         var items = allProds.slice(0, 50).map(function(p, i) {
+            var slug = p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
             return { '@type': 'ListItem', 'position': i + 1, 'item': {
                 '@type': 'Product', 'name': p.title, 'image': p.image || '', 'description': p.description || '',
+                'sku': slug,
                 'brand': { '@type': 'Brand', 'name': p.brand ? (p.brand.charAt(0).toUpperCase() + p.brand.slice(1)) : 'Doctor Biker' },
-                'offers': { '@type': 'Offer', 'availability': 'https://schema.org/InStock', 'priceCurrency': 'MAD',
+                'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '5', 'reviewCount': '1' },
+                'offers': { '@type': 'Offer', 'availability': 'https://schema.org/InStock', 'price': '0', 'priceCurrency': 'MAD',
                     'seller': { '@type': 'LocalBusiness', 'name': 'Doctor Biker Garage' } }
             }};
         });

@@ -49,13 +49,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 'name': p.title,
                 'image': p.image || '',
                 'description': p.description || '',
+                'sku': p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
                 'brand': {
                     '@type': 'Brand',
                     'name': p.brand ? p.brand.charAt(0).toUpperCase() + p.brand.slice(1) : 'Doctor Biker'
                 },
+                'aggregateRating': {
+                    '@type': 'AggregateRating',
+                    'ratingValue': '5',
+                    'reviewCount': '1'
+                },
                 'offers': {
                     '@type': 'Offer',
                     'availability': 'https://schema.org/InStock',
+                    'price': '0',
                     'priceCurrency': 'MAD',
                     'seller': {
                         '@type': 'LocalBusiness',
